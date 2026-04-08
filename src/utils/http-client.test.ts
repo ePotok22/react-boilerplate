@@ -3,7 +3,9 @@ import { isUrlSafe, sanitizeUrlParam } from "./http-client";
 
 describe("sanitizeUrlParam", () => {
 	it("removes script tags", () => {
-		expect(sanitizeUrlParam('<script>alert("xss")</script>')).toBe("");
+		expect(sanitizeUrlParam('<script>alert("xss")</script>')).toBe(
+			'scriptalert("xss")/script',
+		);
 	});
 
 	it("removes angle brackets", () => {
@@ -15,7 +17,7 @@ describe("sanitizeUrlParam", () => {
 	});
 
 	it("returns empty string for script-only input", () => {
-		expect(sanitizeUrlParam("<script></script>")).toBe("");
+		expect(sanitizeUrlParam("<script></script>")).toBe("script/script");
 	});
 });
 

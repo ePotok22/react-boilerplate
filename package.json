@@ -96,8 +96,13 @@
     ]
   },
   "lint-staged": {
+    "*.{ts,tsx}": [
+      "bash -c 'tsc --noEmit'",
+      "bash -c 'vite build'",
+      "vitest related --run --silent"
+    ],
     "*.{ts,tsx,js,jsx,json}": [
-      "biome check --write --unsafe"
+      "biome check"
     ]
   }
 }
