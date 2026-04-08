@@ -11,6 +11,7 @@
 <sub>Built with React 19 · TanStack Start · Tailwind CSS 4 · DaisyUI 5 · GSAP 3 · Biome · Vitest</sub>
 
 </div>
+<img width="1388" height="844" alt="image" src="https://github.com/user-attachments/assets/dc5694f3-a998-430e-8e16-c7723739c7b2" />
 
 ---
 
