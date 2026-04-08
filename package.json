@@ -99,7 +99,7 @@
     "*.{ts,tsx}": [
       "bash -c 'tsc --noEmit'",
       "bash -c 'vite build'",
-      "vitest related --run --silent"
+      "vitest related --run --silent=true"
     ],
     "*.{ts,tsx,js,jsx,json}": [
       "biome check"
