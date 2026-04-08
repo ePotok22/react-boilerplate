@@ -1,0 +1,225 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  checks: write
+  pull-requests: write
+  security-events: write
+  id-token: write
+
+env:
+  NODE_VERSION: '24'
+  CI: true
+  HUSKY: '0'
+
+jobs:
+  build:
+    name: Dependencies & Build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: 📦 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🏗 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+
+      - name: 📦 Install dependencies
+        run: npm ci
+
+      - name: 🏗 Build application
+        run: npm run build
+
+      - name: 📦 Cache node_modules
+        uses: actions/cache/save@v4
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('package-lock.json') }}
+
+  quality:
+    name: Code Quality & Analysis
+    runs-on: ubuntu-latest
+    needs: build
+    timeout-minutes: 10
+
+    steps:
+      - name: 📦 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🏗 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: 📦 Restore node_modules
+        uses: actions/cache/restore@v4
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('package-lock.json') }}
+          fail-on-cache-miss: true
+
+      - name: 🔍 TypeScript type checking
+        run: npm run check:type
+
+      - name: 🔍 Lint & format check
+        run: npx @biomejs/biome check src/
+
+      - name: 📊 Code quality summary
+        run: |
+          echo "## 📊 Code Quality Report" >> $GITHUB_STEP_SUMMARY
+          echo "✅ TypeScript compilation passed" >> $GITHUB_STEP_SUMMARY
+          echo "✅ Biome lint & format verified" >> $GITHUB_STEP_SUMMARY
+
+  test:
+    name: Testing & Coverage
+    runs-on: ubuntu-latest
+    needs: build
+    timeout-minutes: 15
+
+    steps:
+      - name: 📦 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🏗 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: 📦 Restore node_modules
+        uses: actions/cache/restore@v4
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('package-lock.json') }}
+          fail-on-cache-miss: true
+
+      - name: 📊 Run tests with coverage
+        run: npm run test:cov
+
+      - name: 📈 Coverage Summary
+        if: always()
+        run: |
+          if [ -f coverage/coverage-summary.json ]; then
+            echo "## 📊 Test Coverage Report" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+
+            node -e '
+              const fs = require("fs");
+              const coverage = JSON.parse(fs.readFileSync("coverage/coverage-summary.json", "utf8"));
+              const total = coverage.total;
+
+              const getBadge = (pct) => {
+                if (pct >= 90) return "🟢";
+                if (pct >= 80) return "🟡";
+                if (pct >= 60) return "🟠";
+                return "🔴";
+              };
+
+              console.log("### 🎯 Coverage Summary");
+              console.log("");
+              console.log("| Metric | Coverage | Covered/Total | Status |");
+              console.log("|--------|----------|---------------|--------|");
+              console.log("| **Lines** | **" + total.lines.pct + "%** | " + total.lines.covered + "/" + total.lines.total + " | " + getBadge(total.lines.pct) + " |");
+              console.log("| **Branches** | **" + total.branches.pct + "%** | " + total.branches.covered + "/" + total.branches.total + " | " + getBadge(total.branches.pct) + " |");
+              console.log("| **Functions** | **" + total.functions.pct + "%** | " + total.functions.covered + "/" + total.functions.total + " | " + getBadge(total.functions.pct) + " |");
+              console.log("| **Statements** | **" + total.statements.pct + "%** | " + total.statements.covered + "/" + total.statements.total + " | " + getBadge(total.statements.pct) + " |");
+            ' >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: 📤 Upload coverage reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-reports-${{ github.sha }}
+          path: coverage/
+          retention-days: 7
+
+  security:
+    name: Security & Vulnerability Scan
+    runs-on: ubuntu-latest
+    needs: build
+    timeout-minutes: 10
+
+    steps:
+      - name: 📦 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🏗 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: 📦 Restore node_modules
+        uses: actions/cache/restore@v4
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('package-lock.json') }}
+          fail-on-cache-miss: true
+
+      - name: 🔒 npm audit
+        run: |
+          echo "## 🔒 Security Scan Results" >> $GITHUB_STEP_SUMMARY
+          npm audit --omit=dev >> $GITHUB_STEP_SUMMARY 2>&1 || true
+
+      - name: 🔒 Vulnerability scan (OSV)
+        if: always()
+        run: |
+          OSV_VERSION="v2.3.3"
+          curl -sSfL -o osv-scanner "https://github.com/google/osv-scanner/releases/download/${OSV_VERSION}/osv-scanner_linux_amd64"
+          chmod +x osv-scanner
+          ./osv-scanner --lockfile=package-lock.json --format=json --output=osv-results.json . || true
+          rm -f osv-scanner
+
+          if [ -s osv-results.json ]; then
+            echo "📄 OSV report generated (see artifacts)" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "✅ No vulnerabilities found" >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: 📤 Upload security reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: security-reports-${{ github.sha }}
+          path: osv-results.json
+          retention-days: 30
+          if-no-files-found: ignore
+
+  summary:
+    name: Pipeline Summary
+    runs-on: ubuntu-latest
+    needs: [build, quality, test, security]
+    if: always()
+    timeout-minutes: 5
+
+    steps:
+      - name: 📊 Pipeline Results Summary
+        run: |
+          echo "## 🚀 CI/CD Pipeline Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Job | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "|-----|--------|" >> $GITHUB_STEP_SUMMARY
+          echo "| 🏗️ Build | ${{ needs.build.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| 🔍 Quality | ${{ needs.quality.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| 🧪 Tests | ${{ needs.test.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| 🔒 Security | ${{ needs.security.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Branch:** \`${{ github.ref_name }}\` · **Commit:** \`${{ github.sha }}\`" >> $GITHUB_STEP_SUMMARY
+
+      - name: ❌ Fail pipeline on job failures
+        if: contains(needs.*.result, 'failure')
+        run: exit 1

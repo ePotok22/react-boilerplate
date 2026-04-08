@@ -2,13 +2,15 @@ name: Dependency Updates
 
 on:
   schedule:
-    # Run every Monday at 9 AM UTC
-    - cron: "0 9 * * 1"
-  workflow_dispatch: # Allow manual trigger
+    - cron: "0 9 * * 1" # Every Monday at 9 AM UTC
+  workflow_dispatch:
 
 permissions:
   contents: write
   pull-requests: write
+
+env:
+  NODE_VERSION: '24'
 
 jobs:
   dependency-updates:
@@ -16,39 +18,32 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
-      HUSKY: 0 # Skip Husky hooks in CI
+      HUSKY: '0'
 
     steps:
       - name: 📥 Checkout repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
 
-      - name: 🍞 Setup Bun
-        uses: oven-sh/setup-bun@v2
+      - name: 🏗 Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          bun-version: latest
+          node-version: ${{ env.NODE_VERSION }}
 
       - name: 📦 Install dependencies
-        run: bun install --frozen-lockfile
+        run: npm ci
 
       - name: 📦 Check for outdated dependencies
         id: outdated-check
         run: |
-          # Get outdated packages using bun (skip .env loading)
-          BUN_ENV="" bun outdated --no-install 2>&1 | grep -v "\.env" | tee outdated-output.txt || true
+          npm outdated --json > outdated.json 2>&1 || true
 
-          # Debug: show raw output
-          echo "=== Raw output ==="
-          cat outdated-output.txt
-          echo "=== End raw output ==="
-
-          # Check if there are outdated packages
-          # bun outdated shows a table when packages are outdated
-          if [ -s outdated-output.txt ] && grep -qE "│|├|└|@" outdated-output.txt; then
+          if [ -s outdated.json ] && [ "$(cat outdated.json)" != "{}" ]; then
             echo "outdated_packages=true" >> $GITHUB_OUTPUT
-            echo "📦 Updates available"
+            echo "📦 Updates available:"
+            npm outdated || true
           else
             echo "outdated_packages=false" >> $GITHUB_OUTPUT
             echo "✅ All packages are up to date!"
@@ -58,34 +53,35 @@ jobs:
         if: steps.outdated-check.outputs.outdated_packages == 'true'
         id: update-deps
         run: |
-          # Save current lockfile for comparison
-          cp bun.lock bun.lock.old
+          cp package-lock.json package-lock.json.old
 
-          # Update all dependencies
-          bun update
+          npm update --save
 
-          # Check if lockfile changed
-          if diff -q bun.lock bun.lock.old > /dev/null 2>&1; then
+          if diff -q package-lock.json package-lock.json.old > /dev/null 2>&1; then
             echo "changes=false" >> $GITHUB_OUTPUT
             echo "No actual changes to lockfile"
           else
             echo "changes=true" >> $GITHUB_OUTPUT
             echo "Dependencies updated successfully"
-
-            # Generate diff summary for PR
-            echo "### Updated packages:" > changes-summary.txt
-            diff bun.lock.old bun.lock | grep -E "^[<>].*@" | head -50 >> changes-summary.txt || true
           fi
 
-          rm -f bun.lock.old
+          rm -f package-lock.json.old
 
-      - name: ⚡ Run type check
+      - name: 🔍 Type check
         if: steps.update-deps.outputs.changes == 'true'
-        run: bun run typecheck
+        run: npx tsc --noEmit
+
+      - name: 🔍 Lint check
+        if: steps.update-deps.outputs.changes == 'true'
+        run: npx @biomejs/biome check src/
 
       - name: 🏗️ Build project
         if: steps.update-deps.outputs.changes == 'true'
-        run: bun run build
+        run: npm run build
+
+      - name: 🧪 Run tests
+        if: steps.update-deps.outputs.changes == 'true'
+        run: npm test
 
       - name: 📝 Generate PR body
         if: steps.update-deps.outputs.changes == 'true'
@@ -94,39 +90,23 @@ jobs:
           BRANCH_NAME="deps/update-$(date +%Y-%m-%d)"
           echo "branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
 
-          cat > pr-body.md << 'EOF'
+          cat > pr-body.md << 'PREOF'
           ## 📦 Automated Dependency Updates
-
-          This PR contains automated dependency updates.
 
           ### Outdated Packages (before update)
           ```
-          EOF
+          PREOF
 
-          # Add outdated output if available
-          if [ -s outdated-output.txt ]; then
-            cat outdated-output.txt >> pr-body.md
-          else
-            echo "Unable to retrieve outdated packages list" >> pr-body.md
-          fi
+          npm outdated 2>&1 >> pr-body.md || true
 
-          cat >> pr-body.md << 'EOF'
+          cat >> pr-body.md << 'PREOF'
           ```
-
-          ### Changes Made
-          EOF
-
-          # Add changes summary if available
-          if [ -s changes-summary.txt ]; then
-            cat changes-summary.txt >> pr-body.md
-          fi
-
-          cat >> pr-body.md << 'EOF'
 
           ### Verification
           - ✅ Type check passed
-          - ✅ Linting passed
+          - ✅ Lint check passed
           - ✅ Build succeeded
+          - ✅ Tests passed
 
           ### Review Checklist
           - [ ] Review updated packages for breaking changes
@@ -135,7 +115,7 @@ jobs:
 
           ---
           *Created automatically by the Dependency Updates workflow*
-          EOF
+          PREOF
 
       - name: 🚀 Create Pull Request
         if: steps.update-deps.outputs.changes == 'true'
@@ -161,12 +141,7 @@ jobs:
     steps:
       - name: 📊 Workflow Summary
         run: |
-          echo "## 📦 Dependency Health Check Complete" >> $GITHUB_STEP_SUMMARY
+          echo "## 📦 Dependency Health Check" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "- **Outdated Check**: Completed" >> $GITHUB_STEP_SUMMARY
-          echo "- **Update Status**: Check Pull Requests tab for any new dependency update PRs" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "### Workflow Features" >> $GITHUB_STEP_SUMMARY
-          echo "- 🔄 Automatically updates dependencies" >> $GITHUB_STEP_SUMMARY
-          echo "- ⚡ Runs type check, lint, and build verification" >> $GITHUB_STEP_SUMMARY
-          echo "- 🚀 Creates PR if updates are available and pass checks" >> $GITHUB_STEP_SUMMARY
+          echo "- **Status**: ${{ needs.dependency-updates.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Check the **Pull Requests** tab for any new update PRs" >> $GITHUB_STEP_SUMMARY
