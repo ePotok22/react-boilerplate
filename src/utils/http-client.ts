@@ -112,7 +112,6 @@ export const httpClient = createHttpClient(
 
 export function sanitizeUrlParam(param: string): string {
 	return param
-		.replace(/<script[^>]*>.*?<\/script>/gi, "") // Remove script tags
 		.replace(/[<>]/g, "") // Remove angle brackets
 		.trim();
 }
