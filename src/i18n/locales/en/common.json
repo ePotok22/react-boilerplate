@@ -1,0 +1,23 @@
+{
+  "about": "About",
+  "cancel": "Cancel",
+  "datePicker": {
+    "pickADate": "Pick a date"
+  },
+  "demo": "Demo",
+  "docs": "Docs",
+  "english": "English",
+  "error": "Error",
+  "github": "Go to GitHub",
+  "home": "Home",
+  "language": "Language",
+  "loading": "Loading...",
+  "submit": "Submit",
+  "success": "Success",
+  "table": {
+    "noData": "No data available",
+    "perPage": "{{count}} / page",
+    "showingRange": "Showing {{start}}–{{end}} of {{total}}"
+  },
+  "thai": "Thai"
+}

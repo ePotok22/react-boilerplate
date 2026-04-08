@@ -1,0 +1,220 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.4.10/schema.json",
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": {
+          "level": "on",
+          "options": {
+            "groups": [
+              ":BUN:",
+              ":NODE:",
+              ["npm:*", "npm:*/**"],
+              ":PACKAGE_WITH_PROTOCOL:",
+              ":URL:",
+              ":PACKAGE:",
+              ["/**"],
+              ["#*", "#*/**"],
+              ":PATH:"
+            ]
+          }
+        },
+        "useSortedKeys": "on"
+      }
+    }
+  },
+  "css": {
+    "assist": {
+      "enabled": false
+    },
+    "formatter": {
+      "enabled": false
+    },
+    "linter": {
+      "enabled": false
+    }
+  },
+  "files": {
+    "ignoreUnknown": false,
+    "includes": ["src/**/*", "!**/src/styles.css", "!**/routeTree.gen.ts"]
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "tab",
+    "indentWidth": 2,
+    "lineEnding": "lf",
+    "lineWidth": 80
+  },
+  "javascript": {
+    "formatter": {
+      "arrowParentheses": "always",
+      "jsxQuoteStyle": "double",
+      "quoteStyle": "double",
+      "semicolons": "always"
+    },
+    "parser": {}
+  },
+  "json": {
+    "formatter": {
+      "enabled": true,
+      "indentStyle": "space",
+      "indentWidth": 2,
+      "trailingCommas": "none"
+    },
+    "linter": {
+      "enabled": true
+    }
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "a11y": {
+        "noSvgWithoutTitle": "error",
+        "recommended": true,
+        "useButtonType": "error",
+        "useHtmlLang": "error"
+      },
+      "complexity": {
+        "noAdjacentSpacesInRegex": "error",
+        "noEmptyTypeParameters": "error",
+        "noExtraBooleanCast": "error",
+        "noForEach": "warn",
+        "noStaticOnlyClass": "error",
+        "noThisInStatic": "error",
+        "noUselessConstructor": "error",
+        "noUselessFragments": "error",
+        "noUselessStringConcat": "error",
+        "noUselessTypeConstraint": "error",
+        "recommended": true,
+        "useArrowFunction": "error"
+      },
+      "correctness": {
+        "noEmptyPattern": "error",
+        "noInvalidConstructorSuper": "error",
+        "noNonoctalDecimalEscape": "error",
+        "noSelfAssign": "error",
+        "noSetterReturn": "error",
+        "noUndeclaredVariables": "error",
+        "noUnreachable": "error",
+        "noUnusedImports": "error",
+        "noUnusedVariables": "error",
+        "recommended": true,
+        "useExhaustiveDependencies": {
+          "level": "error",
+          "options": {
+            "hooks": [
+              {
+                "name": "useLocalStorage",
+                "stableResult": [1]
+              },
+              {
+                "name": "useGSAP",
+                "stableResult": ["context"]
+              },
+              {
+                "name": "useClickOutside",
+                "stableResult": true
+              },
+              {
+                "name": "useMagneticHover",
+                "stableResult": true
+              },
+              {
+                "name": "useParallax",
+                "stableResult": true
+              },
+              {
+                "name": "useScrollReveal",
+                "stableResult": true
+              },
+              {
+                "name": "useStaggerReveal",
+                "stableResult": true
+              },
+              {
+                "name": "useTextReveal",
+                "stableResult": true
+              }
+            ]
+          }
+        },
+        "useHookAtTopLevel": "error",
+        "useIsNan": "error",
+        "useValidTypeof": "error"
+      },
+      "nursery": {
+        "useSortedClasses": {
+          "level": "error",
+          "options": {
+            "attributes": ["classList"],
+            "functions": ["cn", "clsx", "cva", "tw", "tw.*"]
+          }
+        }
+      },
+      "performance": {
+        "recommended": true
+      },
+      "recommended": true,
+      "security": {
+        "recommended": true
+      },
+      "style": {
+        "noInferrableTypes": "error",
+        "noNamespace": "error",
+        "noNonNullAssertion": "error",
+        "noParameterAssign": "error",
+        "noRestrictedImports": {
+          "level": "error",
+          "options": {
+            "paths": {
+              ".": "Use absolute paths or aliases (e.g., '@/components/') for all local imports for predictable module resolution and refactoring.",
+              "..": "Avoid parent relative imports. Use absolute paths or aliases.",
+              "../..": "Avoid deeply nested relative imports. Use absolute paths or aliases.",
+              "../../..": "Avoid deeply nested relative imports. Use absolute paths or aliases."
+            }
+          }
+        },
+        "noUnusedTemplateLiteral": "error",
+        "noUselessElse": "error",
+        "useArrayLiterals": "error",
+        "useAsConstAssertion": "error",
+        "useBlockStatements": "error",
+        "useConsistentArrayType": "error",
+        "useConst": "error",
+        "useDefaultParameterLast": "error",
+        "useEnumInitializers": "error",
+        "useFragmentSyntax": "error",
+        "useNumberNamespace": "error",
+        "useReactFunctionComponents": "error",
+        "useSelfClosingElements": "error",
+        "useSingleVarDeclarator": "error",
+        "useTemplate": "error"
+      },
+      "suspicious": {
+        "noAssignInExpressions": "error",
+        "noCatchAssign": "error",
+        "noCompareNegZero": "error",
+        "noConsole": "error",
+        "noControlCharactersInRegex": "error",
+        "noDebugger": "error",
+        "noDuplicateObjectKeys": "error",
+        "noExplicitAny": "error",
+        "noFunctionAssign": "error",
+        "noImplicitAnyLet": "error",
+        "noMisleadingCharacterClass": "error",
+        "noPrototypeBuiltins": "error",
+        "noRedundantUseStrict": "error",
+        "noShadowRestrictedNames": "error",
+        "noSparseArray": "error",
+        "noUnsafeDeclarationMerging": "error",
+        "noUnsafeNegation": "error"
+      }
+    }
+  },
+  "vcs": {
+    "clientKind": "git",
+    "defaultBranch": "develop",
+    "enabled": true,
+    "useIgnoreFile": true
+  }
+}

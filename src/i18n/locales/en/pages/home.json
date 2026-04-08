@@ -1,0 +1,22 @@
+{
+  "about": {
+    "description": "TanStack Start gives you type-safe routing, server functions, and modern SSR defaults. Use this as a clean foundation, then layer in your own routes, styling, and add-ons.",
+    "kicker": "About",
+    "title": "A small starter with room to grow."
+  },
+  "aboutLink": "About This Starter",
+  "features": {
+    "serverFunctions": "Server Functions",
+    "serverFunctionsDesc": "Call server code from your UI without creating API boilerplate.",
+    "streaming": "Streaming by Default",
+    "streamingDesc": "Ship progressively rendered responses for faster experiences.",
+    "tailwind": "Tailwind Native",
+    "tailwindDesc": "Design quickly with utility-first styling and reusable tokens.",
+    "typeSafeRouting": "Type-Safe Routing",
+    "typeSafeRoutingDesc": "Routes and links stay in sync across every page."
+  },
+  "quickStart": "Quick Start",
+  "routerGuide": "Router Guide",
+  "subtitle": "This base starter intentionally keeps things light: two routes, clean structure, and the essentials you need to build from scratch.",
+  "title": "Start simple, ship quickly."
+}

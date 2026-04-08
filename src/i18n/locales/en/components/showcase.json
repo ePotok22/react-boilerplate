@@ -1,0 +1,802 @@
+{
+  "atoms": {
+    "accordion": {
+      "darkModeAnswer": "Yes! Every component uses DaisyUI tokens and supports automatic dark mode switching via Tailwind CSS 4.",
+      "darkModeQuestion": "Does it support dark mode?",
+      "description": "Expandable sections with GSAP animation.",
+      "disabledContent": "This item is disabled.",
+      "disabledTitle": "Disabled item",
+      "title": "Accordion",
+      "whatAnimationsAnswer": "GSAP powers all our animations with silky smooth 60fps transitions and scroll-triggered reveals.",
+      "whatAnimationsQuestion": "What animations are included?"
+    },
+    "avatar": {
+      "description": "User avatars with image, initials fallback, and status indicators.",
+      "title": "Avatar"
+    },
+    "badge": "New",
+    "divider": {
+      "description": "Horizontal, vertical, and labeled separators.",
+      "left": "Left",
+      "or": "OR",
+      "right": "Right",
+      "title": "Divider"
+    },
+    "drawer": {
+      "account": "Account",
+      "description": "Slide-in side panel with GSAP animation and backdrop.",
+      "openDrawer": "Open Drawer",
+      "preferences": "Preferences",
+      "settings": "Settings",
+      "storage": "Storage",
+      "title": "Drawer"
+    },
+    "emptyState": {
+      "createItem": "Create Item",
+      "description": "Reusable placeholder for empty data views.",
+      "noItems": "No items found",
+      "noItemsDesc": "Try adjusting your search or filter to find what you're looking for.",
+      "title": "EmptyState"
+    },
+    "kbd": {
+      "close": "Close",
+      "commandPalette": "Command palette",
+      "description": "Keyboard shortcut display badges.",
+      "quickActions": "Quick actions",
+      "title": "Kbd"
+    },
+    "radioGroup": {
+      "description": "Radio button group with label, error, and layout options.",
+      "horizontalLayout": "Horizontal layout",
+      "large": "Large",
+      "medium": "Medium",
+      "optionA": "Option A",
+      "optionB": "Option B",
+      "optionC": "Option C",
+      "selectOption": "Select an option",
+      "small": "Small",
+      "title": "RadioGroup"
+    },
+    "sectionTitle": "Atoms Toolkit",
+    "tabs": {
+      "analyticsContent": "Browse and manage analytics reports with advanced filtering.",
+      "archivedContent": "Archived content.",
+      "boxedLabel": "Boxed — glass morphism",
+      "cdnContent": "CDN regions, edge caching, and global distribution map.",
+      "description": "Premium animated tabs with elastic sliding indicator, hover glow, clip-path panel reveal, and badge support.",
+      "inboxContent": "All notifications and system updates in one unified stream.",
+      "lineLabel": "Line — glowing indicator",
+      "overviewContent": "Real-time metrics, activity feed, and quick action cards — all at a glance.",
+      "overviewRequests": "12k requests",
+      "overviewUptime": "99.9% uptime",
+      "performanceContent": "Performance metrics, latency graphs, and throughput analysis.",
+      "permissionsContent": "Permissions, audit logs, and access control settings.",
+      "pillLabel": "Pill — gradient glow",
+      "settingsContent": "Configure preferences, notifications, and security settings.",
+      "teamContent": "Team members, roles, and invitation management.",
+      "themeContent": "Theme, colors, typography, and spacing customization.",
+      "title": "Tabs"
+    },
+    "tag": {
+      "description": "Removable chips with color variants.",
+      "resetTags": "Reset tags",
+      "title": "Tag"
+    },
+    "tooltip": {
+      "bottomTooltip": "Bottom tooltip",
+      "description": "Hover/focus tooltips with configurable placement.",
+      "leftTooltip": "Left tooltip",
+      "rightTooltip": "Right tooltip",
+      "title": "Tooltip",
+      "topTooltip": "Top tooltip"
+    }
+  },
+  "auth": {
+    "badge": "Zustand + Services",
+    "demo": {
+      "description": "Simulated login/logout with Zustand store.",
+      "dismiss": "Dismiss",
+      "logOut": "Log Out",
+      "signIn": "Sign In as Demo User",
+      "signingIn": "Signing in...",
+      "storeState": "Store State",
+      "title": "Live Auth Demo"
+    },
+    "httpClient": {
+      "autoBearerDesc": "Token from store → every request",
+      "autoBearerTitle": "Auto Bearer injection",
+      "autoLogoutDesc": "Refresh failure → clear state → redirect",
+      "autoLogoutTitle": "Auto logout",
+      "deduplicationDesc": "Concurrent 401s share one refresh call",
+      "deduplicationTitle": "Deduplication",
+      "description": "Auto token injection + 401 refresh.",
+      "silentRefreshDesc": "Expired → refresh → retry seamlessly",
+      "silentRefreshTitle": "Silent 401 refresh",
+      "title": "HTTP Client"
+    },
+    "protectedRoutes": {
+      "description": "Role-based route guards with redirect.",
+      "redirectBack": "Redirect Back",
+      "redirectBackDesc": "Saves <code>?redirect=/path</code> for post-login navigation.",
+      "roleBasedAccess": "Role-based Access",
+      "roleBasedAccessDesc": "Pass <code>roles={[\"admin\"]}</code> to restrict by role.",
+      "title": "Protected Routes"
+    },
+    "sectionTitle": "Auth System",
+    "service": {
+      "description": "Full API layer via Ky HTTP client.",
+      "title": "Auth Service"
+    }
+  },
+  "datePicker": {
+    "badge": "react-day-picker",
+    "disabledPast": {
+      "description": "Only future dates are selectable.",
+      "hint": "Past dates are greyed out",
+      "label": "Earliest Available",
+      "placeholder": "Future dates only",
+      "title": "Disabled Past Dates"
+    },
+    "preFilled": {
+      "description": "Initialize with a default value.",
+      "hint": "Opens with a date already selected",
+      "label": "Follow-up",
+      "placeholder": "Pre-filled with next week",
+      "title": "Pre-filled Date"
+    },
+    "range": {
+      "description": "Select start and end dates.",
+      "hint": "Pick start → end for range",
+      "label": "Trip Dates",
+      "placeholder": "Pick start → end",
+      "title": "Date Range"
+    },
+    "sectionTitle": "Date Picker",
+    "single": {
+      "description": "Click to open calendar. Pick a date.",
+      "hint": "Opens inline calendar dropdown",
+      "label": "Appointment",
+      "placeholder": "Select a date",
+      "title": "Single Date"
+    },
+    "usage": {
+      "description": "How to use DatePicker in your code.",
+      "hint": "Uses react-day-picker + date-fns + useClickOutside",
+      "title": "Usage"
+    }
+  },
+  "demo": {
+    "alerts": "Alerts",
+    "allPackages": "All Packages",
+    "backHome": "Back Home",
+    "badges": "Badges",
+    "buttons": "Buttons",
+    "currentDate": "Current Date",
+    "currentLanguage": "Current language",
+    "daisyuiComponents": "DaisyUI Components",
+    "exploreBelow": "Explore Below",
+    "form": "Form",
+    "formSubmitted": "Form submitted successfully!",
+    "heroSubtitle": "A single page demonstrating every package installed in this project, organized with Atomic Design.",
+    "heroTitle": "Package Showcase",
+    "i18n": "Internationalization",
+    "i18nReady": "i18next is configured! Switch between English and Thai using the language switcher.",
+    "lastFetch": "Last Fetch",
+    "liveStats": "Live Stats",
+    "lucideIcons": "Lucide Icons",
+    "navigation": "Navigation",
+    "queryCount": "Query Count",
+    "switchLanguage": "Switch Language",
+    "utilityFunctions": "Utility Functions"
+  },
+  "errors": {
+    "badge": "Pages",
+    "boundary": {
+      "crashGuard": "Runtime Crash Guard",
+      "crashGuardDesc": "Wraps the entire app in <code>__root.tsx</code>. Falls back to a friendly error screen with reload button.",
+      "description": "Catches runtime errors in the component tree.",
+      "title": "Error Boundary"
+    },
+    "notFound": {
+      "description": "Navigate to any unknown route.",
+      "goToUnknown": "Go to /unknown",
+      "pageNotFound": "Page not found",
+      "title": "404 Not Found"
+    },
+    "routeError": {
+      "description": "Error component on root route.",
+      "routeLevelError": "Route-level Error UI",
+      "routeLevelErrorDesc": "TanStack Router shows an inline error UI when a route loader or component throws.",
+      "title": "Route Error",
+      "tryAgain": "Includes a \"Try Again\" button to re-render"
+    },
+    "sectionTitle": "Error Handling"
+  },
+  "form": {
+    "badge": "Molecules",
+    "cardForm": {
+      "average": "Average",
+      "cancel": "Cancel",
+      "description": "Form inside a card with header and actions.",
+      "excellent": "⭐ Excellent",
+      "feedback": "Quick Feedback",
+      "feedbackDesc": "Let us know your thoughts.",
+      "good": "Good",
+      "nameLabel": "Name",
+      "namePlaceholder": "Your name",
+      "rateUs": "Rate us",
+      "ratingLabel": "Rating",
+      "send": "Send",
+      "title": "Card Form"
+    },
+    "contact": {
+      "agreeTerms": "I agree to the terms and conditions",
+      "description": "FormField, TextareaField, SelectField with icons and validation.",
+      "emailLabel": "Email",
+      "emailPlaceholder": "john@example.com",
+      "errorExample": "Error Example",
+      "errorPlaceholder": "This field has an error",
+      "fieldRequired": "This field is required",
+      "fullNameLabel": "Full Name",
+      "fullNamePlaceholder": "John Doe",
+      "high": "High",
+      "low": "Low",
+      "medium": "Medium",
+      "messageLabel": "Message",
+      "messagePlaceholder": "Tell us more...",
+      "priorityLabel": "Priority",
+      "priorityPlaceholder": "Select priority",
+      "reset": "Reset",
+      "subjectLabel": "Subject",
+      "subjectPlaceholder": "How can we help?",
+      "submit": "Submit",
+      "submitSuccess": "Form submitted successfully! (demo only)",
+      "title": "Contact Form",
+      "urgent": "Urgent"
+    },
+    "inputGroup": {
+      "description": "Input with start/end addons for combined actions.",
+      "examplePlaceholder": "example.com",
+      "search": "Search",
+      "searchPlaceholder": "Search...",
+      "title": "Input Group"
+    },
+    "multiSelect": {
+      "description": "SelectField with multi-select mode, tags, and clear button.",
+      "disabledLabel": "Disabled Multi",
+      "notAvailable": "Not available",
+      "techLabel": "Technologies",
+      "techPlaceholder": "Select technologies…",
+      "title": "Multi-Select"
+    },
+    "sectionTitle": "Form Components",
+    "toggle": {
+      "autoSave": "Auto-save",
+      "darkMode": "Dark mode",
+      "darkModeDesc": "Switch between light and dark theme.",
+      "description": "On/off switch with sizes, variants, and descriptions.",
+      "disabled": "Disabled",
+      "enableNotifications": "Enable notifications",
+      "mustBeEnabled": "This must be enabled",
+      "title": "Toggle / Switch",
+      "withError": "With error"
+    }
+  },
+  "gsap": {
+    "badge": "gsap",
+    "cardFlip": {
+      "backSide": "🎉 Back Side!",
+      "clickAgain": "Click again to flip back",
+      "clickCard": "Click the card",
+      "clickToFlip": "Click to Flip",
+      "description": "Click to flip with 3D rotationY transform.",
+      "title": "3D Card Flip"
+    },
+    "elasticBounce": {
+      "description": "Balls drop with elastic.out() physics easing.",
+      "dropBalls": "Drop Balls",
+      "playing": "Bouncing...",
+      "title": "Elastic Bounce"
+    },
+    "gradientWave": {
+      "description": "Audio-visualizer bars with gradient colors & center origin.",
+      "playing": "Playing...",
+      "playWave": "Play Wave",
+      "title": "Gradient Wave Bars"
+    },
+    "liquidMorph": {
+      "description": "Organic blob morphing with random border-radius.",
+      "morphBlobs": "Morph Blobs",
+      "playing": "Morphing...",
+      "title": "Liquid Morph"
+    },
+    "magneticHover": {
+      "description": "Button follows cursor with elastic snap-back.",
+      "hint": "Move cursor over the button — it follows!",
+      "hoverMe": "Hover Me",
+      "title": "Magnetic Hover"
+    },
+    "morphingShapes": {
+      "description": "Shape, scale, and rotation morph with timeline.",
+      "playing": "Morphing...",
+      "playMorph": "Play Morph",
+      "title": "Morphing Shapes"
+    },
+    "orbital": {
+      "description": "CSS-less orbital animation using GSAP rotation.",
+      "startOrbit": "Start Orbit",
+      "stopOrbit": "Stop Orbit",
+      "title": "Orbital Motion"
+    },
+    "particleExplosion": {
+      "description": "Click to explode and reassemble particles.",
+      "explode": "Explode!",
+      "playing": "Animating...",
+      "title": "Particle Explosion"
+    },
+    "perspectiveTilt": {
+      "description": "Card follows cursor with real-time 3D rotation.",
+      "hoverMove": "Hover & Move",
+      "parallaxLayers": "3D parallax layers",
+      "title": "3D Perspective Tilt"
+    },
+    "pulseRing": {
+      "clickToStart": "Click the button to start",
+      "description": "Concentric pulse rings radiate outward — great for CTAs.",
+      "pulsing": "Pulsing — click to stop",
+      "title": "Pulse Ring"
+    },
+    "sectionTitle": "GSAP Animations",
+    "shuffleGrid": {
+      "description": "Grid items scatter and reassemble randomly.",
+      "playing": "Shuffling...",
+      "shuffle": "Shuffle",
+      "title": "Shuffle Grid"
+    },
+    "stagger": {
+      "description": "Grid items reveal from center with stagger.",
+      "playing": "Playing...",
+      "playStagger": "Play Stagger",
+      "title": "Stagger Animation"
+    },
+    "textReveal": {
+      "description": "Character-by-character split-text animation.",
+      "heading": "Hello GSAP!",
+      "replay": "Replay",
+      "title": "Text Reveal"
+    },
+    "timeline": {
+      "description": "Chained animations with gsap.timeline().",
+      "playing": "Playing...",
+      "playTimeline": "Play Timeline",
+      "title": "Timeline Sequence"
+    },
+    "tween": {
+      "clickBox": "Click the box",
+      "description": "Click the box to trigger gsap.fromTo() with bounce ease.",
+      "title": "Tween Animation"
+    },
+    "typewriter": {
+      "description": "Character-by-character typewriter with blinking cursor.",
+      "playing": "Typing...",
+      "startTyping": "Start Typing",
+      "text": "Building premium UIs with GSAP ✨",
+      "title": "Typewriter"
+    },
+    "wave": {
+      "description": "Audio visualizer-style wave bars with sine easing.",
+      "playing": "Waving...",
+      "playWave": "Play Wave",
+      "title": "Wave Animation"
+    }
+  },
+  "hooks": {
+    "badge": "src/hooks",
+    "clickOutside": {
+      "description": "Detect clicks outside a target element.",
+      "dropdownMenu": "Dropdown Menu",
+      "dropdownOpen": "Dropdown Open",
+      "hint": "Uses ref + mousedown listener on document",
+      "openDropdown": "Open Dropdown",
+      "outsideHint": "Click anywhere outside to close this dropdown.",
+      "title": "useClickOutside"
+    },
+    "debounce": {
+      "debounced": "Debounced",
+      "delay": "500 ms delay — prevents excessive API calls",
+      "description": "Debounces a value with configurable delay.",
+      "placeholder": "Search something...",
+      "rawValue": "Raw value",
+      "title": "useDebounce"
+    },
+    "gsapCounter": {
+      "animating": "Animating...",
+      "count": "COUNT",
+      "description": "Animated number counting with synchronized progress bar.",
+      "startAnimation": "Start Animation",
+      "title": "GSAP Counter"
+    },
+    "mediaQuery": {
+      "description": "Reactive media query matching.",
+      "resizeHint": "Resize the browser window to see values change live.",
+      "title": "useMediaQuery"
+    },
+    "parallax": {
+      "description": "Scroll-based parallax depth effect.",
+      "hint": "Elements move at different scroll speeds for depth",
+      "scrollHint": "Scroll to see depth",
+      "title": "useParallax"
+    },
+    "sectionTitle": "Custom Hooks",
+    "staggerReveal": {
+      "description": "Mount-time stagger animation for children.",
+      "hint": "Children animate in with configurable stagger on mount",
+      "replay": "Replay",
+      "title": "useStaggerReveal"
+    }
+  },
+  "kicker": "Component Showcase",
+  "layouts": {
+    "auth": {
+      "description": "Centered card layout for login/register pages.",
+      "email": "Email",
+      "or": "OR",
+      "password": "Password",
+      "signIn": "Sign In",
+      "title": "Auth Layout",
+      "welcome": "Welcome back to your account"
+    },
+    "badge": "Layouts",
+    "dashboard": {
+      "bounce": "Bounce",
+      "dashboard": "Dashboard",
+      "description": "Sidebar + content layout with responsive drawer.",
+      "home": "Home",
+      "monthlyOverview": "Monthly Overview",
+      "revenue": "Revenue",
+      "settings": "Settings",
+      "title": "Dashboard Layout",
+      "users": "Users"
+    },
+    "sectionTitle": "Layout System"
+  },
+  "loading": {
+    "badge": "Atoms",
+    "contentLoader": {
+      "allSystems": "All systems operational. Revenue up 12.4% this month with 3,241 active users across 18 regions.",
+      "description": "Skeleton → content reveal with GSAP transition.",
+      "growth": "Growth",
+      "lastUpdated": "Last updated 2m ago",
+      "loadContent": "Load Content",
+      "premiumDashboard": "Premium Dashboard",
+      "revenue": "Revenue",
+      "showSkeleton": "Show Skeleton",
+      "title": "Content Loader",
+      "users": "Users"
+    },
+    "inlineLoading": {
+      "connectApi": "Connect to API",
+      "connectDesc": "Establish WebSocket",
+      "description": "Row-level loading states with spinners and status.",
+      "done": "DONE",
+      "idle": "IDLE",
+      "loading": "LOADING",
+      "syncDb": "Sync Database",
+      "syncDesc": "Pull latest records",
+      "title": "Inline Loading",
+      "uploadAssets": "Upload Assets",
+      "uploadDesc": "Push to CDN"
+    },
+    "multiStep": {
+      "deploy": "Deploy",
+      "description": "Sequential step loader with icon bounce and bar fill.",
+      "download": "Download",
+      "process": "Process",
+      "replay": "Replay",
+      "startPipeline": "Start Pipeline",
+      "title": "Multi-Step Progress",
+      "verify": "Verify"
+    },
+    "orbitLoader": {
+      "description": "Three dots orbit a center icon with GSAP.",
+      "pause": "Pause",
+      "resume": "Resume",
+      "title": "Orbit Loader"
+    },
+    "overlay": {
+      "authenticating": "Authenticating…",
+      "connecting": "Connecting…",
+      "description": "Full-area blocking overlay with step messages.",
+      "loadingDashboard": "Loading dashboard…",
+      "simulateLoading": "Simulate Loading",
+      "simulatesMultiStep": "Simulates a multi-step load",
+      "title": "Loading Overlay"
+    },
+    "progress": {
+      "description": "Animated GSAP-powered progress with sizes & colors.",
+      "restart": "Restart",
+      "simulateUpload": "Simulate Upload",
+      "sizes": "SIZES",
+      "title": "Progress Bar"
+    },
+    "sectionTitle": "Loading & Skeleton",
+    "shimmerCard": {
+      "analyticsPro": "Analytics Pro",
+      "bounce": "Bounce",
+      "description": "Premium shimmer skeleton → content with scale reveal.",
+      "duration": "Duration",
+      "loadCard": "Load Card",
+      "realTime": "Real-time",
+      "showSkeleton": "Show Skeleton",
+      "title": "Shimmer Card",
+      "visitors": "Visitors"
+    },
+    "skeletonPlaceholders": {
+      "article": "ARTICLE",
+      "description": "Shimmer placeholders with variant presets.",
+      "replayAnimation": "Replay Animation",
+      "title": "Skeleton Placeholders",
+      "userCard": "USER CARD"
+    },
+    "skeletonScreen": {
+      "description": "Full page skeleton layout — SaaS dashboard mock.",
+      "title": "Skeleton Screen"
+    },
+    "spinners": {
+      "description": "Four styles × four sizes — pick what fits.",
+      "title": "Spinner Variants"
+    }
+  },
+  "modal": {
+    "badge": "Molecule",
+    "basic": {
+      "backdropClick": "Backdrop click to close",
+      "description": "GSAP-animated dialog with backdrop blur.",
+      "dialogDescription": "This is a premium modal built on the native <code>&lt;dialog&gt;</code> element with GSAP spring animation, rounded corners, and subtle border.",
+      "focusTrapping": "Focus trapping & ARIA",
+      "gotIt": "Got it!",
+      "keyboardDismiss": "Keyboard dismiss (Esc)",
+      "openModal": "Open Modal",
+      "title": "Basic Modal",
+      "welcome": "Welcome!"
+    },
+    "confirm": {
+      "cancel": "Cancel",
+      "confirmDeletion": "Confirm Deletion",
+      "delete": "Delete",
+      "deleteConfirmMessage": "Are you sure you want to delete this item? This action cannot be undone.",
+      "description": "Destructive confirmation with toast feedback.",
+      "itemDeleted": "Item deleted",
+      "thisCannotBeUndone": "This action cannot be undone.",
+      "title": "Confirm Dialog",
+      "tryDeleteFlow": "Try Delete Flow"
+    },
+    "form": {
+      "cancel": "Cancel",
+      "description": "Modal with form content and actions.",
+      "displayName": "Display Name",
+      "editPreferences": "Edit preferences in a modal dialog.",
+      "editSettings": "Edit Settings",
+      "email": "Email",
+      "emailPlaceholder": "john@example.com",
+      "namePlaceholder": "John Doe",
+      "openForm": "Open Form",
+      "saveChanges": "Save Changes",
+      "settingsForm": "Settings Form",
+      "settingsSaved": "Settings saved",
+      "title": "Form Modal"
+    },
+    "sectionTitle": "Modal / Dialog",
+    "size": {
+      "description": "Small, medium, and large modal sizes.",
+      "sizeDescription": "This is a {{size}} size modal. Each size is optimized for different content types.",
+      "sizeTitle": "{{size}} Modal",
+      "title": "Size Variants"
+    }
+  },
+  "nav": {
+    "alertsBadges": "Alerts & Badges",
+    "atoms": "Atoms",
+    "auth": "Auth",
+    "datePicker": "Date Picker",
+    "errors": "Errors",
+    "form": "Form",
+    "gsap": "GSAP",
+    "hooks": "Hooks",
+    "layouts": "Layouts",
+    "loading": "Loading",
+    "modal": "Modal",
+    "pagination": "Pagination",
+    "table": "Table",
+    "toast": "Toast",
+    "typography": "Typography"
+  },
+  "pagination": {
+    "activeGlow": "Active glow pulse animation",
+    "animatedBouncing": "Animated bouncing ellipsis",
+    "animationNav": {
+      "description": "With page counter, ripple pulse, animated dots.",
+      "title": "Animation & Navigation"
+    },
+    "ariaLabel": "aria-label, aria-current for accessibility",
+    "badge": "Molecule",
+    "firstLast": "First / Last page jump",
+    "interactive": {
+      "description": "Glass container, animated dots, glow pulse.",
+      "noEllipsis": "No ellipsis",
+      "title": "Interactive Pagination"
+    },
+    "pageLift": "Page lift & arrow bounce on hover",
+    "paginatedData": {
+      "description": "Simulated paginated data view.",
+      "disabled": "Disabled",
+      "ellipsis": "Ellipsis",
+      "firstLast": "First/Last",
+      "title": "Paginated Data"
+    },
+    "ripplePage": "Ripple on page change",
+    "sectionTitle": "Pagination",
+    "sizeVariants": {
+      "description": "Small, medium, and large pagination.",
+      "title": "Size Variants"
+    },
+    "withPageInfo": "WITH PAGE INFO"
+  },
+  "subtitle": "Production-ready toolkit with interactive demos of every component, hook, and utility — powered by GSAP animations.",
+  "table": {
+    "actionButtons": {
+      "description": "Row actions with icon buttons.",
+      "title": "Action Buttons"
+    },
+    "badge": "Molecule",
+    "columns": {
+      "actions": "Actions",
+      "category": "Cat.",
+      "columnA": "Column A",
+      "columnB": "Column B",
+      "email": "Email",
+      "name": "Name",
+      "price": "Price",
+      "product": "Product",
+      "role": "Role",
+      "status": "Status",
+      "stock": "Stock"
+    },
+    "compact": {
+      "description": "Dense layout with client-side filtering.",
+      "filterPlaceholder": "Filter products…",
+      "noMatch": "No products match your filter",
+      "title": "Compact + Searchable"
+    },
+    "defaultTable": {
+      "description": "Hoverable rows with custom cell renders.",
+      "selected": "Selected:",
+      "title": "Default Table"
+    },
+    "emptyState": {
+      "addFirst": "Add your first record to get started.",
+      "description": "Custom icon, title, and description.",
+      "emptyState": "Empty State",
+      "iconTitleDesc": "Icon + title + description",
+      "loading": "Loading",
+      "loadingDesc": "Shimmer skeleton rows",
+      "noRecords": "No records yet",
+      "pagination": "Pagination",
+      "paginationDesc": "Built-in page controls",
+      "stickyHeader": "Sticky Header",
+      "stickyHeaderDesc": "Fixed headers on scroll",
+      "threeVariants": "3 Variants",
+      "threeVariantsDesc": "Default, Zebra, Compact",
+      "title": "Premium Empty State"
+    },
+    "loadingState": {
+      "description": "Skeleton shimmer while data is being fetched.",
+      "title": "Loading State"
+    },
+    "pagination": {
+      "description": "Built-in pagination with page size selector.",
+      "title": "Pagination + Page Size"
+    },
+    "sectionTitle": "Table"
+  },
+  "title": "React Boilerplate",
+  "toast": {
+    "animationFeatures": {
+      "collapseDismiss": "Collapse + slide-out dismiss",
+      "description": "Premium GSAP-powered toast experience.",
+      "iconBounce": "Icon bounce with rotation",
+      "progressBar": "Progress bar auto-countdown",
+      "springSlide": "Spring slide-in entrance (scale + x)",
+      "title": "Animation Features",
+      "variantBorder": "Variant-colored left border + icon bg"
+    },
+    "badge": "Zustand Store",
+    "sectionTitle": "Toast Notifications",
+    "trigger": {
+      "description": "Spring entrance, icon bounce, progress bar countdown.",
+      "errorMsg": "Something went wrong.",
+      "infoMsg": "Your session expires in 5 minutes.",
+      "longMsg": "This stays for 8 seconds!",
+      "stickyMsg": "Sticky toast — dismiss manually",
+      "successMsg": "Operation completed successfully!",
+      "title": "Trigger Toasts",
+      "warningMsg": "Please check your input."
+    }
+  },
+  "types": {
+    "apiTypes": {
+      "description": "PaginatedResponse<T>, ApiError",
+      "title": "API Types"
+    },
+    "authTypes": {
+      "description": "User, AuthTokens, LoginCredentials, and more",
+      "title": "Auth Types"
+    },
+    "badge": "src/types",
+    "sectionTitle": "Shared Types"
+  },
+  "typography": {
+    "alertVariants": {
+      "description": "Contextual feedback with auto-icons.",
+      "errorText": "Error — something went wrong.",
+      "infoText": "This is an info alert — check it out!",
+      "successText": "Success! Everything went smoothly.",
+      "title": "Alert Variants",
+      "warningText": "Warning — proceed with caution."
+    },
+    "badge": "DaisyUI",
+    "badgeSizes": {
+      "description": "Size variants and pill badges.",
+      "glowEffect": "GLOW EFFECT",
+      "glowPillDot": "GLOW + PILL + DOT",
+      "pillStyle": "PILL STYLE",
+      "sizes": "SIZES",
+      "title": "Badge Sizes & Styles",
+      "useCases": "USE CASES"
+    },
+    "badgeVariants": {
+      "category": "Category",
+      "description": "All 9 color variants with dot indicators.",
+      "status": "Status",
+      "style": "Style",
+      "title": "Badge Variants"
+    },
+    "buttons": {
+      "description": "All button variants and states.",
+      "title": "Buttons",
+      "withIcon": "With Icon"
+    },
+    "cards": {
+      "bordered": "Bordered Card",
+      "borderedDesc": "Thicker border variant for emphasis.",
+      "default": "Default Card",
+      "defaultDesc": "Premium rounded corners with hover shadow.",
+      "description": "Card component variants.",
+      "glass": "Glass Card",
+      "glassDesc": "Glassmorphism with backdrop blur.",
+      "learnMore": "Learn More",
+      "title": "Cards"
+    },
+    "dismissibleAlerts": {
+      "allDismissed": "All alerts dismissed!",
+      "description": "Click × to dismiss with GSAP animation.",
+      "reset": "Reset",
+      "title": "Dismissible Alerts"
+    },
+    "glowBadges": {
+      "description": "Radiant shadow glow effect per variant.",
+      "title": "Glow Badges"
+    },
+    "headings": {
+      "bodyText": "Body text — The quick brown fox jumps over the lazy dog. This is how body copy looks across the application with the Manrope font family.",
+      "captionText": "Small / caption text — secondary information shown in reduced size and opacity.",
+      "description": "Built-in typography using Manrope + Fraunces.",
+      "displayTitle": "Display Title (Fraunces)",
+      "heading2": "Heading 2 (Manrope)",
+      "heading3": "Heading 3",
+      "heading4": "Heading 4",
+      "title": "Headings & Text"
+    },
+    "sectionTitle": "Typography"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "badge": "Built with TanStack Start",
+  "brand": "React Boilerplate",
+  "coffee": "and lots of coffee",
+  "copyright": "© {{year}} Your name here. All rights reserved.",
+  "description": "Production-ready toolkit powered by TanStack Start, Tailwind CSS 4, and GSAP animations.",
+  "madeWith": "Made with"
+}

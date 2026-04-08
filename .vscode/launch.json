@@ -1,0 +1,38 @@
+  {
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Debug (Chrome)",
+        "type": "chrome",
+        "request": "launch",
+        "url": "http://localhost:5173",
+        "webRoot": "${workspaceFolder}/src",
+        "sourceMaps": true,
+        "preLaunchTask": "Start React Dev Server",
+        "postDebugTask": "Stop React Dev Server"
+      },
+      {
+        "name": "Debug (Edge)",
+        "type": "msedge",
+        "request": "launch",
+        "url": "http://localhost:5173",
+        "webRoot": "${workspaceFolder}/src",
+        "sourceMaps": true,
+        "preLaunchTask": "Start React Dev Server",
+        "postDebugTask": "Stop React Dev Server"
+      },
+
+      {
+        "name": "Debug (Vivaldi)",
+        "type": "chrome",
+        "request": "launch",
+        "url": "http://localhost:5173",
+        "webRoot": "${workspaceFolder}/src",
+        "sourceMaps": true,
+        "preLaunchTask": "Start React Dev Server",
+        "postDebugTask": "Stop React Dev Server",
+        "runtimeArgs": ["--remote-debugging-port=9222"],
+        "runtimeExecutable": "/Applications/Vivaldi.app/Contents/MacOS/Vivaldi"
+      }
+    ]
+  }

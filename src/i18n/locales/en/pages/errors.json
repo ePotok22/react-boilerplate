@@ -1,0 +1,13 @@
+{
+  "notFound": {
+    "backHome": "Back to Home",
+    "description": "The page you are looking for does not exist or has been moved.",
+    "hint": "Error 404 — This address doesn't lead anywhere",
+    "title": "Page Not Found"
+  },
+  "server": {
+    "description": "Something went wrong on our end. Please try again later.",
+    "retry": "Try Again",
+    "title": "Internal Server Error"
+  }
+}

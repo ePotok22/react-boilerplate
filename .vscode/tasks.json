@@ -1,0 +1,40 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Start React Dev Server",
+      "type": "shell",
+      "command": "npm run dev",
+      "isBackground": true,
+      "problemMatcher": {
+        "pattern": [
+          {
+            "regexp": ".*",
+            "file": 1,
+            "location": 2,
+            "message": 3
+          }
+        ],
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "VITE",
+          "endsPattern": "ready in"
+        }
+      },
+      "presentation": {
+        "reveal": "silent"
+      },
+      "group": "build"
+    },
+    {
+      "label": "Stop React Dev Server",
+      "type": "shell",
+      "command": "sh",
+      "args": [
+        "-c",
+        "if [[ \"$OSTYPE\" == \"darwin\"* || \"$OSTYPE\" == \"linux\"* ]]; then pkill -f vite; else taskkill /F /IM node.exe; fi"
+      ],
+      "problemMatcher": []
+    }
+  ]
+}

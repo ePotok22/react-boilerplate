@@ -1,0 +1,23 @@
+{
+  "about": "เกี่ยวกับ",
+  "cancel": "ยกเลิก",
+  "datePicker": {
+    "pickADate": "เลือกวันที่"
+  },
+  "demo": "สาธิต",
+  "docs": "เอกสาร",
+  "english": "อังกฤษ",
+  "error": "ข้อผิดพลาด",
+  "github": "ไปที่ GitHub",
+  "home": "หน้าแรก",
+  "language": "ภาษา",
+  "loading": "กำลังโหลด...",
+  "submit": "ส่ง",
+  "success": "สำเร็จ",
+  "table": {
+    "noData": "ไม่มีข้อมูล",
+    "perPage": "{{count}} / หน้า",
+    "showingRange": "แสดง {{start}}–{{end}} จาก {{total}}"
+  },
+  "thai": "ไทย"
+}

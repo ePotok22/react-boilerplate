@@ -1,0 +1,8 @@
+{
+  "badge": "สร้างด้วย TanStack Start",
+  "brand": "React Boilerplate",
+  "coffee": "และกาแฟมากมาย",
+  "copyright": "© {{year}} ชื่อของคุณ สงวนลิขสิทธิ์",
+  "description": "ชุดเครื่องมือพร้อมใช้งานจริง ขับเคลื่อนด้วย TanStack Start, Tailwind CSS 4 และแอนิเมชัน GSAP",
+  "madeWith": "สร้างด้วย"
+}

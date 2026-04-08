@@ -1,0 +1,802 @@
+{
+  "atoms": {
+    "accordion": {
+      "darkModeAnswer": "ใช่! ทุกคอมโพเนนต์ใช้โทเค็น DaisyUI และรองรับการสลับโหมดมืดอัตโนมัติผ่าน Tailwind CSS 4",
+      "darkModeQuestion": "รองรับโหมดมืดหรือไม่?",
+      "description": "ส่วนขยายได้พร้อมแอนิเมชัน GSAP",
+      "disabledContent": "รายการนี้ถูกปิดใช้งาน",
+      "disabledTitle": "รายการที่ปิดใช้งาน",
+      "title": "แอคคอร์เดียน",
+      "whatAnimationsAnswer": "GSAP ขับเคลื่อนแอนิเมชันทั้งหมดของเราด้วยการเปลี่ยนผ่านที่ลื่นไหล 60fps และการเปิดเผยที่ทริกเกอร์ด้วยการเลื่อน",
+      "whatAnimationsQuestion": "มีแอนิเมชันอะไรบ้าง?"
+    },
+    "avatar": {
+      "description": "อวาตาร์ผู้ใช้พร้อมรูปภาพ ตัวอักษรสำรอง และตัวบ่งชี้สถานะ",
+      "title": "อวาตาร์"
+    },
+    "badge": "ใหม่",
+    "divider": {
+      "description": "ตัวคั่นแนวนอน แนวตั้ง และแบบมีป้ายกำกับ",
+      "left": "ซ้าย",
+      "or": "หรือ",
+      "right": "ขวา",
+      "title": "ตัวคั่น"
+    },
+    "drawer": {
+      "account": "บัญชี",
+      "description": "แผงด้านข้างเลื่อนเข้าพร้อมแอนิเมชัน GSAP และฉากหลัง",
+      "openDrawer": "เปิดดรอว์เวอร์",
+      "preferences": "การตั้งค่า",
+      "settings": "ตั้งค่า",
+      "storage": "พื้นที่จัดเก็บ",
+      "title": "ดรอว์เวอร์"
+    },
+    "emptyState": {
+      "createItem": "สร้างรายการ",
+      "description": "ตัวยึดตำแหน่งที่ใช้ซ้ำได้สำหรับมุมมองข้อมูลว่าง",
+      "noItems": "ไม่พบรายการ",
+      "noItemsDesc": "ลองปรับการค้นหาหรือตัวกรองเพื่อค้นหาสิ่งที่คุณต้องการ",
+      "title": "สถานะว่าง"
+    },
+    "kbd": {
+      "close": "ปิด",
+      "commandPalette": "แถบคำสั่ง",
+      "description": "ป้ายแสดงปุ่มลัดคีย์บอร์ด",
+      "quickActions": "การดำเนินการด่วน",
+      "title": "ปุ่มคีย์บอร์ด"
+    },
+    "radioGroup": {
+      "description": "กลุ่มปุ่มเรดิโอพร้อมป้าย ข้อผิดพลาด และตัวเลือกเลย์เอาต์",
+      "horizontalLayout": "เลย์เอาต์แนวนอน",
+      "large": "ใหญ่",
+      "medium": "กลาง",
+      "optionA": "ตัวเลือก A",
+      "optionB": "ตัวเลือก B",
+      "optionC": "ตัวเลือก C",
+      "selectOption": "เลือกตัวเลือก",
+      "small": "เล็ก",
+      "title": "กลุ่มเรดิโอ"
+    },
+    "sectionTitle": "ชุดเครื่องมืออะตอม",
+    "tabs": {
+      "analyticsContent": "เรียกดูและจัดการรายงานวิเคราะห์พร้อมการกรองขั้นสูง",
+      "archivedContent": "เนื้อหาที่เก็บถาวร",
+      "boxedLabel": "กล่อง — กลาสมอร์ฟิซึม",
+      "cdnContent": "ภูมิภาค CDN, แคชเอดจ์ และแผนที่กระจายทั่วโลก",
+      "description": "แท็บเคลื่อนไหวพรีเมียมพร้อมตัวบ่งชี้เลื่อนยืดหยุ่น เรืองแสงเมื่อโฮเวอร์ เปิดเผยแผงด้วย clip-path และรองรับแบดจ์",
+      "inboxContent": "การแจ้งเตือนทั้งหมดและการอัปเดตระบบในสตรีมรวมเดียว",
+      "lineLabel": "เส้น — ตัวบ่งชี้เรืองแสง",
+      "overviewContent": "เมตริกแบบเรียลไทม์ ฟีดกิจกรรม และการ์ดการดำเนินการด่วน — ทุกอย่างในมุมมองเดียว",
+      "overviewRequests": "12k คำขอ",
+      "overviewUptime": "99.9% เวลาทำงาน",
+      "performanceContent": "เมตริกประสิทธิภาพ กราฟความหน่วง และการวิเคราะห์ปริมาณงาน",
+      "permissionsContent": "สิทธิ์ บันทึกตรวจสอบ และการตั้งค่าควบคุมการเข้าถึง",
+      "pillLabel": "เม็ด — เรืองแสงแบบไล่สี",
+      "settingsContent": "กำหนดค่าการตั้งค่า การแจ้งเตือน และการรักษาความปลอดภัย",
+      "teamContent": "สมาชิกในทีม บทบาท และการจัดการคำเชิญ",
+      "themeContent": "ธีม สี ตัวอักษร และการปรับแต่งระยะห่าง",
+      "title": "แท็บ"
+    },
+    "tag": {
+      "description": "ชิปที่ลบได้พร้อมตัวเลือกสี",
+      "resetTags": "รีเซ็ตแท็ก",
+      "title": "แท็ก"
+    },
+    "tooltip": {
+      "bottomTooltip": "ทูลทิปด้านล่าง",
+      "description": "ทูลทิปโฮเวอร์/โฟกัสที่กำหนดตำแหน่งได้",
+      "leftTooltip": "ทูลทิปซ้าย",
+      "rightTooltip": "ทูลทิปขวา",
+      "title": "ทูลทิป",
+      "topTooltip": "ทูลทิปบน"
+    }
+  },
+  "auth": {
+    "badge": "Zustand + บริการ",
+    "demo": {
+      "description": "จำลองล็อกอิน/ล็อกเอาต์ด้วย Zustand store",
+      "dismiss": "ปิด",
+      "logOut": "ออกจากระบบ",
+      "signIn": "เข้าสู่ระบบเป็นผู้ใช้ทดลอง",
+      "signingIn": "กำลังเข้าสู่ระบบ...",
+      "storeState": "สถานะ Store",
+      "title": "สาธิตการยืนยันตัวตน"
+    },
+    "httpClient": {
+      "autoBearerDesc": "โทเค็นจาก store → ทุกคำขอ",
+      "autoBearerTitle": "แนบ Bearer อัตโนมัติ",
+      "autoLogoutDesc": "รีเฟรชล้มเหลว → ล้างสถานะ → เปลี่ยนเส้นทาง",
+      "autoLogoutTitle": "ออกจากระบบอัตโนมัติ",
+      "deduplicationDesc": "401 พร้อมกันใช้การรีเฟรชเดียว",
+      "deduplicationTitle": "ลดความซ้ำซ้อน",
+      "description": "แนบโทเค็นอัตโนมัติ + รีเฟรช 401",
+      "silentRefreshDesc": "หมดอายุ → รีเฟรช → ลองใหม่อย่างราบรื่น",
+      "silentRefreshTitle": "รีเฟรช 401 เงียบ",
+      "title": "HTTP Client"
+    },
+    "protectedRoutes": {
+      "description": "การป้องกันเส้นทางตามบทบาทพร้อมการเปลี่ยนเส้นทาง",
+      "redirectBack": "เปลี่ยนเส้นทางกลับ",
+      "redirectBackDesc": "บันทึก <code>?redirect=/path</code> สำหรับการนำทางหลังล็อกอิน",
+      "roleBasedAccess": "การเข้าถึงตามบทบาท",
+      "roleBasedAccessDesc": "ส่ง <code>roles={[\"admin\"]}</code> เพื่อจำกัดตามบทบาท",
+      "title": "เส้นทางที่ป้องกัน"
+    },
+    "sectionTitle": "ระบบยืนยันตัวตน",
+    "service": {
+      "description": "เลเยอร์ API เต็มรูปแบบผ่าน Ky HTTP client",
+      "title": "บริการยืนยันตัวตน"
+    }
+  },
+  "datePicker": {
+    "badge": "react-day-picker",
+    "disabledPast": {
+      "description": "เลือกได้เฉพาะวันในอนาคต",
+      "hint": "วันในอดีตเป็นสีเทา",
+      "label": "วันที่เร็วที่สุด",
+      "placeholder": "เฉพาะวันในอนาคต",
+      "title": "ปิดใช้งานวันในอดีต"
+    },
+    "preFilled": {
+      "description": "เริ่มต้นด้วยค่าเริ่มต้น",
+      "hint": "เปิดพร้อมวันที่เลือกไว้แล้ว",
+      "label": "ติดตามผล",
+      "placeholder": "กรอกล่วงหน้าด้วยสัปดาห์หน้า",
+      "title": "วันที่กรอกล่วงหน้า"
+    },
+    "range": {
+      "description": "เลือกวันเริ่มต้นและสิ้นสุด",
+      "hint": "เลือกเริ่มต้น → สิ้นสุดสำหรับช่วง",
+      "label": "วันที่เดินทาง",
+      "placeholder": "เลือกเริ่มต้น → สิ้นสุด",
+      "title": "ช่วงวันที่"
+    },
+    "sectionTitle": "เลือกวันที่",
+    "single": {
+      "description": "คลิกเพื่อเปิดปฏิทิน เลือกวันที่",
+      "hint": "เปิดปฏิทินแบบอินไลน์",
+      "label": "นัดหมาย",
+      "placeholder": "เลือกวันที่",
+      "title": "วันที่เดี่ยว"
+    },
+    "usage": {
+      "description": "วิธีใช้ DatePicker ในโค้ดของคุณ",
+      "hint": "ใช้ react-day-picker + date-fns + useClickOutside",
+      "title": "การใช้งาน"
+    }
+  },
+  "demo": {
+    "alerts": "การแจ้งเตือน",
+    "allPackages": "แพ็คเกจทั้งหมด",
+    "backHome": "กลับหน้าแรก",
+    "badges": "แบดจ์",
+    "buttons": "ปุ่ม",
+    "currentDate": "วันที่ปัจจุบัน",
+    "currentLanguage": "ภาษาปัจจุบัน",
+    "daisyuiComponents": "คอมโพเนนต์ DaisyUI",
+    "exploreBelow": "สำรวจด้านล่าง",
+    "form": "ฟอร์ม",
+    "formSubmitted": "ส่งฟอร์มสำเร็จ!",
+    "heroSubtitle": "หน้าเดียวที่สาธิตทุกแพ็คเกจที่ติดตั้งในโปรเจกต์นี้ จัดเรียงตามการออกแบบแบบอะตอม",
+    "heroTitle": "แสดงแพ็คเกจ",
+    "i18n": "การแปลภาษา",
+    "i18nReady": "i18next พร้อมใช้งานแล้ว! สลับระหว่างภาษาอังกฤษและภาษาไทยโดยใช้ตัวสลับภาษา",
+    "lastFetch": "ดึงข้อมูลล่าสุด",
+    "liveStats": "สถิติสด",
+    "lucideIcons": "ไอคอน Lucide",
+    "navigation": "การนำทาง",
+    "queryCount": "จำนวนคิวรี",
+    "switchLanguage": "เปลี่ยนภาษา",
+    "utilityFunctions": "ฟังก์ชันยูทิลิตี้"
+  },
+  "errors": {
+    "badge": "หน้า",
+    "boundary": {
+      "crashGuard": "การ์ดป้องกันข้อผิดพลาดรันไทม์",
+      "crashGuardDesc": "ครอบคลุมแอปทั้งหมดใน <code>__root.tsx</code> แสดงหน้าจอข้อผิดพลาดที่เป็นมิตรพร้อมปุ่มโหลดใหม่",
+      "description": "จับข้อผิดพลาดรันไทม์ในทรีคอมโพเนนต์",
+      "title": "Error Boundary"
+    },
+    "notFound": {
+      "description": "นำทางไปยังเส้นทางที่ไม่รู้จัก",
+      "goToUnknown": "ไปที่ /unknown",
+      "pageNotFound": "ไม่พบหน้า",
+      "title": "404 ไม่พบ"
+    },
+    "routeError": {
+      "description": "คอมโพเนนต์ข้อผิดพลาดบนเส้นทางหลัก",
+      "routeLevelError": "UI ข้อผิดพลาดระดับเส้นทาง",
+      "routeLevelErrorDesc": "TanStack Router แสดง UI ข้อผิดพลาดแบบอินไลน์เมื่อตัวโหลดเส้นทางหรือคอมโพเนนต์เกิดข้อผิดพลาด",
+      "title": "ข้อผิดพลาดเส้นทาง",
+      "tryAgain": "มีปุ่ม \"ลองอีกครั้ง\" เพื่อเรนเดอร์ใหม่"
+    },
+    "sectionTitle": "การจัดการข้อผิดพลาด"
+  },
+  "form": {
+    "badge": "โมเลกุล",
+    "cardForm": {
+      "average": "ปานกลาง",
+      "cancel": "ยกเลิก",
+      "description": "ฟอร์มภายในการ์ดพร้อมส่วนหัวและการดำเนินการ",
+      "excellent": "⭐ ยอดเยี่ยม",
+      "feedback": "ความคิดเห็นด่วน",
+      "feedbackDesc": "แจ้งให้เราทราบความคิดของคุณ",
+      "good": "ดี",
+      "nameLabel": "ชื่อ",
+      "namePlaceholder": "ชื่อของคุณ",
+      "rateUs": "ให้คะแนนเรา",
+      "ratingLabel": "คะแนน",
+      "send": "ส่ง",
+      "title": "ฟอร์มการ์ด"
+    },
+    "contact": {
+      "agreeTerms": "ฉันยอมรับข้อกำหนดและเงื่อนไข",
+      "description": "FormField, TextareaField, SelectField พร้อมไอคอนและการตรวจสอบ",
+      "emailLabel": "อีเมล",
+      "emailPlaceholder": "john@example.com",
+      "errorExample": "ตัวอย่างข้อผิดพลาด",
+      "errorPlaceholder": "ฟิลด์นี้มีข้อผิดพลาด",
+      "fieldRequired": "จำเป็นต้องกรอกฟิลด์นี้",
+      "fullNameLabel": "ชื่อเต็ม",
+      "fullNamePlaceholder": "สมชาย ใจดี",
+      "high": "สูง",
+      "low": "ต่ำ",
+      "medium": "ปานกลาง",
+      "messageLabel": "ข้อความ",
+      "messagePlaceholder": "บอกเราเพิ่มเติม...",
+      "priorityLabel": "ความสำคัญ",
+      "priorityPlaceholder": "เลือกความสำคัญ",
+      "reset": "รีเซ็ต",
+      "subjectLabel": "หัวข้อ",
+      "subjectPlaceholder": "เราช่วยอะไรได้บ้าง?",
+      "submit": "ส่ง",
+      "submitSuccess": "ส่งฟอร์มสำเร็จ! (สาธิตเท่านั้น)",
+      "title": "ฟอร์มติดต่อ",
+      "urgent": "เร่งด่วน"
+    },
+    "inputGroup": {
+      "description": "อินพุตพร้อมส่วนเสริมเริ่มต้น/สิ้นสุดสำหรับการดำเนินการรวม",
+      "examplePlaceholder": "example.com",
+      "search": "ค้นหา",
+      "searchPlaceholder": "ค้นหา...",
+      "title": "กลุ่มอินพุต"
+    },
+    "multiSelect": {
+      "description": "SelectField พร้อมโหมดเลือกหลายรายการ แท็ก และปุ่มล้าง",
+      "disabledLabel": "ปิดใช้งานหลายรายการ",
+      "notAvailable": "ไม่พร้อมใช้งาน",
+      "techLabel": "เทคโนโลยี",
+      "techPlaceholder": "เลือกเทคโนโลยี…",
+      "title": "เลือกหลายรายการ"
+    },
+    "sectionTitle": "คอมโพเนนต์ฟอร์ม",
+    "toggle": {
+      "autoSave": "บันทึกอัตโนมัติ",
+      "darkMode": "โหมดมืด",
+      "darkModeDesc": "สลับระหว่างธีมสว่างและมืด",
+      "description": "สวิตช์เปิด/ปิดพร้อมขนาด ตัวเลือก และคำอธิบาย",
+      "disabled": "ปิดใช้งาน",
+      "enableNotifications": "เปิดการแจ้งเตือน",
+      "mustBeEnabled": "จำเป็นต้องเปิดใช้งาน",
+      "title": "สลับ / สวิตช์",
+      "withError": "มีข้อผิดพลาด"
+    }
+  },
+  "gsap": {
+    "badge": "gsap",
+    "cardFlip": {
+      "backSide": "🎉 ด้านหลัง!",
+      "clickAgain": "คลิกอีกครั้งเพื่อพลิกกลับ",
+      "clickCard": "คลิกการ์ด",
+      "clickToFlip": "คลิกเพื่อพลิก",
+      "description": "คลิกเพื่อพลิกด้วยการแปลง rotationY แบบ 3 มิติ",
+      "title": "พลิกการ์ด 3 มิติ"
+    },
+    "elasticBounce": {
+      "description": "ลูกบอลตกด้วยฟิสิกส์ elastic.out()",
+      "dropBalls": "ปล่อยลูกบอล",
+      "playing": "กำลังเด้ง...",
+      "title": "เด้งยืดหยุ่น"
+    },
+    "gradientWave": {
+      "description": "แท่งเสียงพร้อมสีไล่ระดับและจุดกำเนิดตรงกลาง",
+      "playing": "กำลังเล่น...",
+      "playWave": "เล่นคลื่น",
+      "title": "แท่งคลื่นไล่สี"
+    },
+    "liquidMorph": {
+      "description": "การเปลี่ยนรูป blob แบบออร์แกนิกด้วย border-radius สุ่ม",
+      "morphBlobs": "เปลี่ยนรูป Blob",
+      "playing": "กำลังเปลี่ยนรูป...",
+      "title": "เปลี่ยนรูปของเหลว"
+    },
+    "magneticHover": {
+      "description": "ปุ่มตามเคอร์เซอร์พร้อมการดีดกลับแบบยืดหยุ่น",
+      "hint": "เลื่อนเคอร์เซอร์เหนือปุ่ม — มันจะตาม!",
+      "hoverMe": "โฮเวอร์ที่นี่",
+      "title": "โฮเวอร์แม่เหล็ก"
+    },
+    "morphingShapes": {
+      "description": "เปลี่ยนรูปร่าง สเกล และการหมุนด้วยไทม์ไลน์",
+      "playing": "กำลังเปลี่ยนรูป...",
+      "playMorph": "เล่นเปลี่ยนรูป",
+      "title": "เปลี่ยนรูปร่าง"
+    },
+    "orbital": {
+      "description": "แอนิเมชันวงโคจรไม่ใช้ CSS ด้วยการหมุน GSAP",
+      "startOrbit": "เริ่มวงโคจร",
+      "stopOrbit": "หยุดวงโคจร",
+      "title": "การเคลื่อนที่แบบวงโคจร"
+    },
+    "particleExplosion": {
+      "description": "คลิกเพื่อระเบิดและประกอบอนุภาคใหม่",
+      "explode": "ระเบิด!",
+      "playing": "กำลังเคลื่อนไหว...",
+      "title": "ระเบิดอนุภาค"
+    },
+    "perspectiveTilt": {
+      "description": "การ์ดตามเคอร์เซอร์ด้วยการหมุน 3 มิติแบบเรียลไทม์",
+      "hoverMove": "โฮเวอร์และเลื่อน",
+      "parallaxLayers": "เลเยอร์ parallax 3 มิติ",
+      "title": "เอียง 3 มิติ"
+    },
+    "pulseRing": {
+      "clickToStart": "คลิกปุ่มเพื่อเริ่ม",
+      "description": "วงแหวนพัลส์แผ่ออกด้านนอก — เหมาะสำหรับ CTA",
+      "pulsing": "กำลังพัลส์ — คลิกเพื่อหยุด",
+      "title": "วงแหวนพัลส์"
+    },
+    "sectionTitle": "แอนิเมชัน GSAP",
+    "shuffleGrid": {
+      "description": "รายการกริดกระจายและประกอบใหม่แบบสุ่ม",
+      "playing": "กำลังสับ...",
+      "shuffle": "สับ",
+      "title": "สับกริด"
+    },
+    "stagger": {
+      "description": "รายการกริดเปิดเผยจากศูนย์กลางแบบ stagger",
+      "playing": "กำลังเล่น...",
+      "playStagger": "เล่น Stagger",
+      "title": "แอนิเมชัน Stagger"
+    },
+    "textReveal": {
+      "description": "แอนิเมชันแยกตัวอักษรทีละตัว",
+      "heading": "สวัสดี GSAP!",
+      "replay": "เล่นซ้ำ",
+      "title": "เปิดเผยข้อความ"
+    },
+    "timeline": {
+      "description": "แอนิเมชันต่อเนื่องด้วย gsap.timeline()",
+      "playing": "กำลังเล่น...",
+      "playTimeline": "เล่นไทม์ไลน์",
+      "title": "ลำดับไทม์ไลน์"
+    },
+    "tween": {
+      "clickBox": "คลิกกล่อง",
+      "description": "คลิกกล่องเพื่อทริกเกอร์ gsap.fromTo() ด้วย bounce ease",
+      "title": "แอนิเมชัน Tween"
+    },
+    "typewriter": {
+      "description": "พิมพ์ดีดทีละตัวอักษรพร้อมเคอร์เซอร์กระพริบ",
+      "playing": "กำลังพิมพ์...",
+      "startTyping": "เริ่มพิมพ์",
+      "text": "สร้าง UI พรีเมียมด้วย GSAP ✨",
+      "title": "เครื่องพิมพ์ดีด"
+    },
+    "wave": {
+      "description": "แท่งเสียงแบบคลื่นด้วย sine easing",
+      "playing": "กำลังส่าย...",
+      "playWave": "เล่นคลื่น",
+      "title": "แอนิเมชันคลื่น"
+    }
+  },
+  "hooks": {
+    "badge": "src/hooks",
+    "clickOutside": {
+      "description": "ตรวจจับการคลิกนอกองค์ประกอบเป้าหมาย",
+      "dropdownMenu": "เมนูดรอปดาวน์",
+      "dropdownOpen": "ดรอปดาวน์เปิดอยู่",
+      "hint": "ใช้ ref + mousedown listener บน document",
+      "openDropdown": "เปิดดรอปดาวน์",
+      "outsideHint": "คลิกที่ไหนก็ได้ข้างนอกเพื่อปิดดรอปดาวน์นี้",
+      "title": "useClickOutside"
+    },
+    "debounce": {
+      "debounced": "หน่วงแล้ว",
+      "delay": "หน่วง 500 ms — ป้องกันการเรียก API มากเกินไป",
+      "description": "หน่วงค่าด้วยเวลาที่กำหนดได้",
+      "placeholder": "ค้นหาบางอย่าง...",
+      "rawValue": "ค่าดิบ",
+      "title": "useDebounce"
+    },
+    "gsapCounter": {
+      "animating": "กำลังเคลื่อนไหว...",
+      "count": "นับ",
+      "description": "การนับตัวเลขเคลื่อนไหวพร้อมแถบความคืบหน้าที่ซิงค์",
+      "startAnimation": "เริ่มแอนิเมชัน",
+      "title": "ตัวนับ GSAP"
+    },
+    "mediaQuery": {
+      "description": "การจับคู่ media query แบบรีแอคทีฟ",
+      "resizeHint": "ปรับขนาดหน้าต่างเบราว์เซอร์เพื่อดูค่าเปลี่ยนแปลง",
+      "title": "useMediaQuery"
+    },
+    "parallax": {
+      "description": "เอฟเฟกต์ parallax ตามการเลื่อน",
+      "hint": "องค์ประกอบเคลื่อนที่ด้วยความเร็วการเลื่อนต่างกันเพื่อความลึก",
+      "scrollHint": "เลื่อนเพื่อดูความลึก",
+      "title": "useParallax"
+    },
+    "sectionTitle": "ฮุคที่กำหนดเอง",
+    "staggerReveal": {
+      "description": "แอนิเมชัน stagger ตอนเมาท์สำหรับลูก",
+      "hint": "ลูกเคลื่อนไหวเข้ามาด้วย stagger ที่กำหนดได้ตอนเมาท์",
+      "replay": "เล่นซ้ำ",
+      "title": "useStaggerReveal"
+    }
+  },
+  "kicker": "แสดงคอมโพเนนต์",
+  "layouts": {
+    "auth": {
+      "description": "เลย์เอาต์การ์ดกึ่งกลางสำหรับหน้าล็อกอิน/ลงทะเบียน",
+      "email": "อีเมล",
+      "or": "หรือ",
+      "password": "รหัสผ่าน",
+      "signIn": "เข้าสู่ระบบ",
+      "title": "เลย์เอาต์การยืนยันตัวตน",
+      "welcome": "ยินดีต้อนรับกลับสู่บัญชีของคุณ"
+    },
+    "badge": "เลย์เอาต์",
+    "dashboard": {
+      "bounce": "อัตราปฏิเสธ",
+      "dashboard": "แดชบอร์ด",
+      "description": "เลย์เอาต์แถบข้าง + เนื้อหาพร้อมดรอว์เวอร์ตอบสนอง",
+      "home": "หน้าแรก",
+      "monthlyOverview": "ภาพรวมรายเดือน",
+      "revenue": "รายได้",
+      "settings": "ตั้งค่า",
+      "title": "เลย์เอาต์แดชบอร์ด",
+      "users": "ผู้ใช้"
+    },
+    "sectionTitle": "ระบบเลย์เอาต์"
+  },
+  "loading": {
+    "badge": "อะตอม",
+    "contentLoader": {
+      "allSystems": "ระบบทั้งหมดทำงานปกติ รายได้เพิ่มขึ้น 12.4% เดือนนี้ พร้อมผู้ใช้งานจริง 3,241 คนใน 18 ภูมิภาค",
+      "description": "โครงกระดูก → เปิดเผยเนื้อหาด้วยการเปลี่ยนผ่าน GSAP",
+      "growth": "การเติบโต",
+      "lastUpdated": "อัปเดตล่าสุด 2 นาทีที่แล้ว",
+      "loadContent": "โหลดเนื้อหา",
+      "premiumDashboard": "แดชบอร์ดพรีเมียม",
+      "revenue": "รายได้",
+      "showSkeleton": "แสดงโครงกระดูก",
+      "title": "ตัวโหลดเนื้อหา",
+      "users": "ผู้ใช้"
+    },
+    "inlineLoading": {
+      "connectApi": "เชื่อมต่อ API",
+      "connectDesc": "สร้าง WebSocket",
+      "description": "สถานะโหลดระดับแถวพร้อมสปินเนอร์และสถานะ",
+      "done": "เสร็จ",
+      "idle": "ว่าง",
+      "loading": "กำลังโหลด",
+      "syncDb": "ซิงค์ฐานข้อมูล",
+      "syncDesc": "ดึงบันทึกล่าสุด",
+      "title": "โหลดแบบอินไลน์",
+      "uploadAssets": "อัปโหลดเนื้อหา",
+      "uploadDesc": "อัปเดตไปยัง CDN"
+    },
+    "multiStep": {
+      "deploy": "ปรับใช้",
+      "description": "ตัวโหลดลำดับขั้นตอนพร้อมไอคอนเด้งและการเติมแถบ",
+      "download": "ดาวน์โหลด",
+      "process": "ประมวลผล",
+      "replay": "เล่นซ้ำ",
+      "startPipeline": "เริ่มไปป์ไลน์",
+      "title": "ความคืบหน้าหลายขั้นตอน",
+      "verify": "ตรวจสอบ"
+    },
+    "orbitLoader": {
+      "description": "จุดสามจุดโคจรรอบไอคอนกลางด้วย GSAP",
+      "pause": "หยุดชั่วคราว",
+      "resume": "ดำเนินการต่อ",
+      "title": "ตัวโหลดวงโคจร"
+    },
+    "overlay": {
+      "authenticating": "กำลังยืนยันตัวตน…",
+      "connecting": "กำลังเชื่อมต่อ…",
+      "description": "โอเวอร์เลย์บล็อกเต็มพื้นที่พร้อมข้อความขั้นตอน",
+      "loadingDashboard": "กำลังโหลดแดชบอร์ด…",
+      "simulateLoading": "จำลองการโหลด",
+      "simulatesMultiStep": "จำลองการโหลดหลายขั้นตอน",
+      "title": "โอเวอร์เลย์โหลด"
+    },
+    "progress": {
+      "description": "แถบความคืบหน้าขับเคลื่อนด้วย GSAP พร้อมขนาดและสี",
+      "restart": "เริ่มใหม่",
+      "simulateUpload": "จำลองอัปโหลด",
+      "sizes": "ขนาด",
+      "title": "แถบความคืบหน้า"
+    },
+    "sectionTitle": "การโหลดและโครงกระดูก",
+    "shimmerCard": {
+      "analyticsPro": "Analytics Pro",
+      "bounce": "อัตราปฏิเสธ",
+      "description": "โครงกระดูกชิมเมอร์พรีเมียม → เนื้อหาพร้อมเปิดเผยแบบสเกล",
+      "duration": "ระยะเวลา",
+      "loadCard": "โหลดการ์ด",
+      "realTime": "เรียลไทม์",
+      "showSkeleton": "แสดงโครงกระดูก",
+      "title": "การ์ดชิมเมอร์",
+      "visitors": "ผู้เยี่ยมชม"
+    },
+    "skeletonPlaceholders": {
+      "article": "บทความ",
+      "description": "ตัวยึดตำแหน่งชิมเมอร์พร้อมรูปแบบสำเร็จรูป",
+      "replayAnimation": "เล่นแอนิเมชันซ้ำ",
+      "title": "ตัวยึดตำแหน่งโครงกระดูก",
+      "userCard": "การ์ดผู้ใช้"
+    },
+    "skeletonScreen": {
+      "description": "เลย์เอาต์โครงกระดูกหน้าเต็ม — จำลองแดชบอร์ด SaaS",
+      "title": "หน้าจอโครงกระดูก"
+    },
+    "spinners": {
+      "description": "สี่รูปแบบ × สี่ขนาด — เลือกที่เหมาะ",
+      "title": "ตัวเลือกสปินเนอร์"
+    }
+  },
+  "modal": {
+    "badge": "โมเลกุล",
+    "basic": {
+      "backdropClick": "คลิกฉากหลังเพื่อปิด",
+      "description": "ไดอะล็อกเคลื่อนไหวด้วย GSAP พร้อมเบลอฉากหลัง",
+      "dialogDescription": "นี่คือโมดัลพรีเมียมสร้างบน <code>&lt;dialog&gt;</code> element ดั้งเดิมพร้อมแอนิเมชันสปริง GSAP มุมโค้ง และขอบบาง",
+      "focusTrapping": "การจับโฟกัสและ ARIA",
+      "gotIt": "เข้าใจแล้ว!",
+      "keyboardDismiss": "ปิดด้วยคีย์บอร์ด (Esc)",
+      "openModal": "เปิดโมดัล",
+      "title": "โมดัลพื้นฐาน",
+      "welcome": "ยินดีต้อนรับ!"
+    },
+    "confirm": {
+      "cancel": "ยกเลิก",
+      "confirmDeletion": "ยืนยันการลบ",
+      "delete": "ลบ",
+      "deleteConfirmMessage": "คุณแน่ใจหรือไม่ว่าต้องการลบรายการนี้? การดำเนินการนี้ไม่สามารถย้อนกลับได้",
+      "description": "การยืนยันทำลายพร้อมแจ้งเตือน toast",
+      "itemDeleted": "ลบรายการแล้ว",
+      "thisCannotBeUndone": "การดำเนินการนี้ไม่สามารถย้อนกลับได้",
+      "title": "ไดอะล็อกยืนยัน",
+      "tryDeleteFlow": "ลองขั้นตอนลบ"
+    },
+    "form": {
+      "cancel": "ยกเลิก",
+      "description": "โมดัลพร้อมเนื้อหาฟอร์มและการดำเนินการ",
+      "displayName": "ชื่อที่แสดง",
+      "editPreferences": "แก้ไขการตั้งค่าในไดอะล็อกโมดัล",
+      "editSettings": "แก้ไขการตั้งค่า",
+      "email": "อีเมล",
+      "emailPlaceholder": "john@example.com",
+      "namePlaceholder": "สมชาย ใจดี",
+      "openForm": "เปิดฟอร์ม",
+      "saveChanges": "บันทึกการเปลี่ยนแปลง",
+      "settingsForm": "ฟอร์มตั้งค่า",
+      "settingsSaved": "บันทึกการตั้งค่าแล้ว",
+      "title": "โมดัลฟอร์ม"
+    },
+    "sectionTitle": "โมดัล / ไดอะล็อก",
+    "size": {
+      "description": "โมดัลขนาดเล็ก กลาง และใหญ่",
+      "sizeDescription": "นี่คือโมดัลขนาด {{size}} แต่ละขนาดเหมาะสมสำหรับเนื้อหาประเภทต่างๆ",
+      "sizeTitle": "โมดัล {{size}}",
+      "title": "ตัวเลือกขนาด"
+    }
+  },
+  "nav": {
+    "alertsBadges": "แจ้งเตือนและแบดจ์",
+    "atoms": "อะตอม",
+    "auth": "การยืนยันตัวตน",
+    "datePicker": "เลือกวันที่",
+    "errors": "ข้อผิดพลาด",
+    "form": "ฟอร์ม",
+    "gsap": "GSAP",
+    "hooks": "ฮุค",
+    "layouts": "เลย์เอาต์",
+    "loading": "กำลังโหลด",
+    "modal": "โมดัล",
+    "pagination": "แบ่งหน้า",
+    "table": "ตาราง",
+    "toast": "แจ้งเตือน",
+    "typography": "ตัวอักษร"
+  },
+  "pagination": {
+    "activeGlow": "แอนิเมชันเรืองแสงหน้าที่ใช้งาน",
+    "animatedBouncing": "จุดไข่ปลาเด้งเคลื่อนไหว",
+    "animationNav": {
+      "description": "พร้อมตัวนับหน้า พัลส์ริปเปิล จุดเคลื่อนไหว",
+      "title": "แอนิเมชันและการนำทาง"
+    },
+    "ariaLabel": "aria-label, aria-current สำหรับการเข้าถึง",
+    "badge": "โมเลกุล",
+    "firstLast": "ข้ามไปหน้าแรก / หน้าสุดท้าย",
+    "interactive": {
+      "description": "คอนเทนเนอร์กลาส จุดเคลื่อนไหว เรืองแสงพัลส์",
+      "noEllipsis": "ไม่มีจุดไข่ปลา",
+      "title": "แบ่งหน้าแบบโต้ตอบ"
+    },
+    "pageLift": "ยกหน้าและเด้งลูกศรเมื่อโฮเวอร์",
+    "paginatedData": {
+      "description": "มุมมองข้อมูลแบ่งหน้าจำลอง",
+      "disabled": "ปิดใช้งาน",
+      "ellipsis": "จุดไข่ปลา",
+      "firstLast": "แรก/สุดท้าย",
+      "title": "ข้อมูลแบ่งหน้า"
+    },
+    "ripplePage": "ริปเปิลเมื่อเปลี่ยนหน้า",
+    "sectionTitle": "แบ่งหน้า",
+    "sizeVariants": {
+      "description": "แบ่งหน้าเล็ก กลาง และใหญ่",
+      "title": "ตัวเลือกขนาด"
+    },
+    "withPageInfo": "พร้อมข้อมูลหน้า"
+  },
+  "subtitle": "ชุดเครื่องมือพร้อมใช้งานจริงพร้อมสาธิตแบบโต้ตอบของทุกคอมโพเนนต์ ฮุค และยูทิลิตี้ — ขับเคลื่อนด้วยแอนิเมชัน GSAP",
+  "table": {
+    "actionButtons": {
+      "description": "การดำเนินการแถวพร้อมปุ่มไอคอน",
+      "title": "ปุ่มการดำเนินการ"
+    },
+    "badge": "โมเลกุล",
+    "columns": {
+      "actions": "การดำเนินการ",
+      "category": "หมวด",
+      "columnA": "คอลัมน์ A",
+      "columnB": "คอลัมน์ B",
+      "email": "อีเมล",
+      "name": "ชื่อ",
+      "price": "ราคา",
+      "product": "สินค้า",
+      "role": "บทบาท",
+      "status": "สถานะ",
+      "stock": "สต็อก"
+    },
+    "compact": {
+      "description": "เลย์เอาต์กระชับพร้อมการกรองฝั่งไคลเอนต์",
+      "filterPlaceholder": "กรองสินค้า…",
+      "noMatch": "ไม่มีสินค้าตรงกับตัวกรอง",
+      "title": "กระชับ + ค้นหาได้"
+    },
+    "defaultTable": {
+      "description": "แถวโฮเวอร์ได้พร้อมการเรนเดอร์เซลล์กำหนดเอง",
+      "selected": "เลือกแล้ว:",
+      "title": "ตารางเริ่มต้น"
+    },
+    "emptyState": {
+      "addFirst": "เพิ่มบันทึกแรกของคุณเพื่อเริ่มต้น",
+      "description": "ไอคอน ชื่อ และคำอธิบายกำหนดเอง",
+      "emptyState": "สถานะว่าง",
+      "iconTitleDesc": "ไอคอน + ชื่อ + คำอธิบาย",
+      "loading": "กำลังโหลด",
+      "loadingDesc": "แถวโครงกระดูกชิมเมอร์",
+      "noRecords": "ยังไม่มีบันทึก",
+      "pagination": "แบ่งหน้า",
+      "paginationDesc": "ตัวควบคุมหน้าในตัว",
+      "stickyHeader": "ส่วนหัวติด",
+      "stickyHeaderDesc": "ส่วนหัวคงที่เมื่อเลื่อน",
+      "threeVariants": "3 รูปแบบ",
+      "threeVariantsDesc": "ค่าเริ่มต้น ลายม้าลาย กระชับ",
+      "title": "สถานะว่างพรีเมียม"
+    },
+    "loadingState": {
+      "description": "โครงกระดูกชิมเมอร์ขณะดึงข้อมูล",
+      "title": "สถานะโหลด"
+    },
+    "pagination": {
+      "description": "แบ่งหน้าในตัวพร้อมตัวเลือกขนาดหน้า",
+      "title": "แบ่งหน้า + ขนาดหน้า"
+    },
+    "sectionTitle": "ตาราง"
+  },
+  "title": "React Boilerplate",
+  "toast": {
+    "animationFeatures": {
+      "collapseDismiss": "ยุบ + เลื่อนออกเพื่อปิด",
+      "description": "ประสบการณ์ toast ขับเคลื่อนด้วย GSAP พรีเมียม",
+      "iconBounce": "ไอคอนเด้งพร้อมหมุน",
+      "progressBar": "แถบความคืบหน้านับถอยหลังอัตโนมัติ",
+      "springSlide": "เข้าแบบสปริง (สเกล + x)",
+      "title": "ฟีเจอร์แอนิเมชัน",
+      "variantBorder": "ขอบซ้ายและพื้นหลังไอคอนตามสี"
+    },
+    "badge": "Zustand Store",
+    "sectionTitle": "การแจ้งเตือน Toast",
+    "trigger": {
+      "description": "เข้าแบบสปริง ไอคอนเด้ง แถบความคืบหน้านับถอยหลัง",
+      "errorMsg": "เกิดข้อผิดพลาด",
+      "infoMsg": "เซสชันของคุณจะหมดอายุใน 5 นาที",
+      "longMsg": "อันนี้อยู่ 8 วินาที!",
+      "stickyMsg": "Toast ติดหนึบ — ปิดด้วยตนเอง",
+      "successMsg": "ดำเนินการสำเร็จ!",
+      "title": "ทริกเกอร์ Toast",
+      "warningMsg": "กรุณาตรวจสอบข้อมูลของคุณ"
+    }
+  },
+  "types": {
+    "apiTypes": {
+      "description": "PaginatedResponse<T>, ApiError",
+      "title": "ประเภท API"
+    },
+    "authTypes": {
+      "description": "User, AuthTokens, LoginCredentials และอื่นๆ",
+      "title": "ประเภทการยืนยันตัวตน"
+    },
+    "badge": "src/types",
+    "sectionTitle": "ประเภทที่ใช้ร่วม"
+  },
+  "typography": {
+    "alertVariants": {
+      "description": "ข้อเสนอแนะตามบริบทพร้อมไอคอนอัตโนมัติ",
+      "errorText": "ข้อผิดพลาด — เกิดข้อผิดพลาดบางอย่าง",
+      "infoText": "นี่คือการแจ้งเตือนข้อมูล — ลองดูสิ!",
+      "successText": "สำเร็จ! ทุกอย่างเรียบร้อยดี",
+      "title": "ตัวเลือกการแจ้งเตือน",
+      "warningText": "คำเตือน — ดำเนินการด้วยความระมัดระวัง"
+    },
+    "badge": "DaisyUI",
+    "badgeSizes": {
+      "description": "ตัวเลือกขนาดและแบดจ์แบบเม็ด",
+      "glowEffect": "เอฟเฟกต์เรืองแสง",
+      "glowPillDot": "เรืองแสง + เม็ด + จุด",
+      "pillStyle": "สไตล์เม็ด",
+      "sizes": "ขนาด",
+      "title": "ขนาดและสไตล์แบดจ์",
+      "useCases": "กรณีใช้งาน"
+    },
+    "badgeVariants": {
+      "category": "หมวดหมู่",
+      "description": "ตัวเลือกสีทั้ง 9 พร้อมตัวบ่งชี้จุด",
+      "status": "สถานะ",
+      "style": "สไตล์",
+      "title": "ตัวเลือกแบดจ์"
+    },
+    "buttons": {
+      "description": "ตัวเลือกปุ่มและสถานะทั้งหมด",
+      "title": "ปุ่ม",
+      "withIcon": "พร้อมไอคอน"
+    },
+    "cards": {
+      "bordered": "การ์ดมีขอบ",
+      "borderedDesc": "ขอบหนาสำหรับเน้น",
+      "default": "การ์ดเริ่มต้น",
+      "defaultDesc": "มุมโค้งพรีเมียมพร้อมเงาเมื่อโฮเวอร์",
+      "description": "ตัวเลือกคอมโพเนนต์การ์ด",
+      "glass": "การ์ดกลาส",
+      "glassDesc": "กลาสมอร์ฟิซึมพร้อมเบลอฉากหลัง",
+      "learnMore": "เรียนรู้เพิ่มเติม",
+      "title": "การ์ด"
+    },
+    "dismissibleAlerts": {
+      "allDismissed": "ปิดการแจ้งเตือนทั้งหมดแล้ว!",
+      "description": "คลิก × เพื่อปิดพร้อมแอนิเมชัน GSAP",
+      "reset": "รีเซ็ต",
+      "title": "การแจ้งเตือนที่ปิดได้"
+    },
+    "glowBadges": {
+      "description": "เอฟเฟกต์เรืองแสงเงาต่อตัวเลือก",
+      "title": "แบดจ์เรืองแสง"
+    },
+    "headings": {
+      "bodyText": "ข้อความเนื้อหา — สุนัขจิ้งจอกสีน้ำตาลตัวเล็กกระโดดข้ามสุนัขขี้เกียจ นี่คือลักษณะของข้อความเนื้อหาทั่วแอปพลิเคชันด้วยฟอนต์ Manrope",
+      "captionText": "ข้อความเล็ก / คำบรรยาย — ข้อมูลรองแสดงในขนาดเล็กลงและความทึบต่ำลง",
+      "description": "ตัวอักษรในตัวใช้ Manrope + Fraunces",
+      "displayTitle": "หัวข้อแสดง (Fraunces)",
+      "heading2": "หัวข้อ 2 (Manrope)",
+      "heading3": "หัวข้อ 3",
+      "heading4": "หัวข้อ 4",
+      "title": "หัวข้อและข้อความ"
+    },
+    "sectionTitle": "ตัวอักษร"
+  }
+}
