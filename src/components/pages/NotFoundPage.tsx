@@ -30,6 +30,11 @@ function FloatingParticle({
 				yoyo: true,
 			},
 		);
+
+		const el = ref.current;
+		return () => {
+			gsap.killTweensOf(el);
+		};
 	}, [delay]);
 
 	return (
@@ -47,7 +52,7 @@ const PARTICLES = [
 	{ delay: 0.8, size: 5, x: 25, y: 75 },
 	{ delay: 1.2, size: 7, x: 70, y: 70 },
 	{ delay: 0.6, size: 4, x: 50, y: 10 },
-	{ delay: 1.0, size: 6, x: 90, y: 45 },
+	{ delay: 1, size: 6, x: 90, y: 45 },
 	{ delay: 0.2, size: 5, x: 10, y: 50 },
 ];
 
@@ -119,6 +124,18 @@ export default function NotFoundPage() {
 				rotation: 360,
 			});
 		}
+
+		const ghost = ghostRef.current;
+		const compass = compassRef.current;
+		return () => {
+			tl.kill();
+			if (ghost) {
+				gsap.killTweensOf(ghost);
+			}
+			if (compass) {
+				gsap.killTweensOf(compass);
+			}
+		};
 	}, []);
 
 	return (

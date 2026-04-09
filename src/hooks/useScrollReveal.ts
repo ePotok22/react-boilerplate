@@ -1,11 +1,7 @@
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef } from "react";
+import "@/config/gsap-plugins";
 import { useGSAP } from "@/hooks/useGSAP";
-
-if (typeof window !== "undefined") {
-	gsap.registerPlugin(ScrollTrigger);
-}
 
 interface ScrollRevealOptions {
 	y?: number;

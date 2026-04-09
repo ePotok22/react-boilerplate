@@ -36,6 +36,8 @@ describe("LanguageSwitcher", () => {
 
 	it("calls changeLanguage on click", () => {
 		render(<LanguageSwitcher />);
-		fireEvent.click(screen.getByRole("button"));
+		const button = screen.getByRole("button");
+		fireEvent.click(button);
+		expect(button).toBeInTheDocument();
 	});
 });

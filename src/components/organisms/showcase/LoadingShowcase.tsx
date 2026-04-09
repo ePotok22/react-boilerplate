@@ -23,6 +23,30 @@ import { Button, ProgressBar, Skeleton, Spinner } from "@/components/atoms";
 import Section from "@/components/organisms/showcase/Section";
 import ShowcaseCard from "@/components/organisms/showcase/ShowcaseCard";
 import { useGSAP } from "@/hooks/useGSAP";
+import { secureRandom } from "@/utils/random";
+
+function ToggleLoadButton({
+	loaded,
+	onToggle,
+	showLabel,
+	loadLabel,
+}: Readonly<{
+	loaded: boolean;
+	onToggle: () => void;
+	showLabel: string;
+	loadLabel: string;
+}>) {
+	return (
+		<Button
+			size="sm"
+			variant={loaded ? "ghost" : "primary"}
+			className="w-full"
+			onClick={onToggle}
+		>
+			{loaded ? showLabel : loadLabel}
+		</Button>
+	);
+}
 
 const SPINNER_VARIANTS = [
 	{ label: "Spinner", variant: "spinner" as const },
@@ -219,7 +243,7 @@ function ProgressDemo() {
 					}
 					return 100;
 				}
-				return p + Math.random() * 15 + 3;
+				return p + secureRandom() * 15 + 3;
 			});
 		}, 300);
 	};
@@ -449,16 +473,12 @@ function ContentLoaderDemo() {
 						</div>
 					</div>
 				)}
-				<Button
-					size="sm"
-					variant={loaded ? "ghost" : "primary"}
-					className="w-full"
-					onClick={toggle}
-				>
-					{loaded
-						? t("loading.contentLoader.showSkeleton")
-						: t("loading.contentLoader.loadContent")}
-				</Button>
+				<ToggleLoadButton
+					loaded={loaded}
+					onToggle={toggle}
+					showLabel={t("loading.contentLoader.showSkeleton")}
+					loadLabel={t("loading.contentLoader.loadContent")}
+				/>
 			</div>
 		</ShowcaseCard>
 	);
@@ -733,9 +753,9 @@ function ShimmerCardDemo() {
 							</div>
 						</div>
 						<div className="grid grid-cols-3 gap-px bg-base-content/5 p-px">
-							{[1, 2, 3].map((n) => (
+							{Array.from({ length: 3 }, (_, idx) => (
 								<div
-									key={n}
+									key={`shimmer-skel-${idx.toString()}`}
 									className="flex flex-col items-center gap-1 bg-base-100 py-2.5"
 								>
 									<Skeleton className="h-3.5 w-10" />
@@ -745,38 +765,39 @@ function ShimmerCardDemo() {
 						</div>
 					</div>
 				)}
-				<Button
-					size="sm"
-					variant={loaded ? "ghost" : "primary"}
-					className="w-full"
-					onClick={toggle}
-				>
-					{loaded
-						? t("loading.shimmerCard.showSkeleton")
-						: t("loading.shimmerCard.loadCard")}
-				</Button>
+				<ToggleLoadButton
+					loaded={loaded}
+					onToggle={toggle}
+					showLabel={t("loading.shimmerCard.showSkeleton")}
+					loadLabel={t("loading.shimmerCard.loadCard")}
+				/>
 			</div>
 		</ShowcaseCard>
 	);
 }
 
+type LoadingState = "idle" | "loading" | "done";
+
 function InlineLoadingDemo() {
 	const { t } = useTranslation("showcase");
 	const [states, setStates] = useState({
-		connect: "idle" as "idle" | "loading" | "done",
-		sync: "idle" as "idle" | "loading" | "done",
-		upload: "idle" as "idle" | "loading" | "done",
+		connect: "idle" as LoadingState,
+		sync: "idle" as LoadingState,
+		upload: "idle" as LoadingState,
 	});
+
+	const resetToIdle = (key: keyof typeof states) => {
+		setStates((s) => ({ ...s, [key]: "idle" }));
+	};
+
+	const markDone = (key: keyof typeof states) => {
+		setStates((s) => ({ ...s, [key]: "done" }));
+		setTimeout(() => resetToIdle(key), 2000);
+	};
 
 	const simulate = (key: keyof typeof states) => {
 		setStates((s) => ({ ...s, [key]: "loading" }));
-		setTimeout(
-			() => {
-				setStates((s) => ({ ...s, [key]: "done" }));
-				setTimeout(() => setStates((s) => ({ ...s, [key]: "idle" })), 2000);
-			},
-			1500 + Math.random() * 1000,
-		);
+		setTimeout(() => markDone(key), 1500 + secureRandom() * 1000);
 	};
 
 	const items = [
@@ -800,6 +821,21 @@ function InlineLoadingDemo() {
 		},
 	];
 
+	const stateColorClass: Record<string, string> = {
+		done: "bg-success/15 text-success",
+		idle: "bg-base-content/5 text-base-content/30",
+		loading: "bg-primary/15 text-primary",
+	};
+
+	const stateLabel = (state: "idle" | "loading" | "done") => {
+		const map = {
+			done: t("loading.inlineLoading.done"),
+			idle: t("loading.inlineLoading.idle"),
+			loading: t("loading.inlineLoading.loading"),
+		};
+		return map[state];
+	};
+
 	return (
 		<ShowcaseCard
 			title={t("loading.inlineLoading.title")}
@@ -814,40 +850,22 @@ function InlineLoadingDemo() {
 						className="flex w-full items-center gap-3 rounded-xl bg-base-200/40 p-3 text-left transition-colors hover:bg-base-200/70"
 					>
 						<div
-							className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg transition-colors duration-300 ${
-								states[key] === "done"
-									? "bg-success/15 text-success"
-									: states[key] === "loading"
-										? "bg-primary/15 text-primary"
-										: "bg-base-content/5 text-base-content/30"
-							}`}
+							className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg transition-colors duration-300 ${stateColorClass[states[key]]}`}
 						>
-							{states[key] === "loading" ? (
+							{states[key] === "loading" && (
 								<Spinner size="xs" className="text-primary" />
-							) : states[key] === "done" ? (
-								<ShieldCheck size={14} />
-							) : (
-								<Icon size={14} />
 							)}
+							{states[key] === "done" && <ShieldCheck size={14} />}
+							{states[key] === "idle" && <Icon size={14} />}
 						</div>
 						<div className="min-w-0 flex-1">
 							<p className="font-medium text-xs">{label}</p>
 							<p className="text-[10px] opacity-40">{desc}</p>
 						</div>
 						<span
-							className={`rounded-full px-2 py-0.5 font-semibold text-[9px] tracking-wider ${
-								states[key] === "done"
-									? "bg-success/15 text-success"
-									: states[key] === "loading"
-										? "bg-primary/15 text-primary"
-										: "bg-base-content/5 text-base-content/30"
-							}`}
+							className={`rounded-full px-2 py-0.5 font-semibold text-[9px] tracking-wider ${stateColorClass[states[key]]}`}
 						>
-							{states[key] === "done"
-								? t("loading.inlineLoading.done")
-								: states[key] === "loading"
-									? t("loading.inlineLoading.loading")
-									: t("loading.inlineLoading.idle")}
+							{stateLabel(states[key])}
 						</span>
 					</button>
 				))}

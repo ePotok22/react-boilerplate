@@ -16,8 +16,10 @@ import { useTranslation } from "react-i18next";
 import Section from "@/components/organisms/showcase/Section";
 import ShowcaseCard from "@/components/organisms/showcase/ShowcaseCard";
 import { useGSAP } from "@/hooks/useGSAP";
+import { useGsapAnimation } from "@/hooks/useGsapAnimation";
 import { useMagneticHover } from "@/hooks/useMagneticHover";
 import { useTextReveal } from "@/hooks/useTextReveal";
+import { secureRandom } from "@/utils/random";
 
 function GsapBoxDemo() {
 	const { t } = useTranslation("showcase");
@@ -62,28 +64,22 @@ function GsapBoxDemo() {
 
 function GsapStaggerDemo() {
 	const { t } = useTranslation("showcase");
-	const containerRef = useRef<HTMLDivElement>(null);
-	const [playing, setPlaying] = useState(false);
-	const { contextSafe } = useGSAP({ scope: containerRef });
-
-	const playStagger = contextSafe(() => {
-		if (playing) {
-			return;
-		}
-		setPlaying(true);
-		gsap.fromTo(
-			".stagger-dot",
-			{ opacity: 0, scale: 0 },
-			{
-				duration: 0.4,
-				ease: "back.out(2)",
-				onComplete: () => setPlaying(false),
-				opacity: 1,
-				scale: 1,
-				stagger: { each: 0.06, from: "center" },
-			},
-		);
-	});
+	const { containerRef, play, playing } = useGsapAnimation(
+		(_container, done) => {
+			gsap.fromTo(
+				".stagger-dot",
+				{ opacity: 0, scale: 0 },
+				{
+					duration: 0.4,
+					ease: "back.out(2)",
+					onComplete: done,
+					opacity: 1,
+					scale: 1,
+					stagger: { each: 0.06, from: "center" },
+				},
+			);
+		},
+	);
 
 	return (
 		<ShowcaseCard
@@ -102,7 +98,7 @@ function GsapStaggerDemo() {
 				<button
 					type="button"
 					className="btn btn-sm btn-accent w-full"
-					onClick={playStagger}
+					onClick={play}
 					disabled={playing}
 				>
 					{playing ? t("gsap.stagger.playing") : t("gsap.stagger.playStagger")}
@@ -114,34 +110,26 @@ function GsapStaggerDemo() {
 
 function GsapTimelineDemo() {
 	const { t } = useTranslation("showcase");
-	const containerRef = useRef<HTMLDivElement>(null);
-	const [playing, setPlaying] = useState(false);
-	const { contextSafe } = useGSAP({ scope: containerRef });
-
-	const playTimeline = contextSafe(() => {
-		if (playing) {
-			return;
-		}
-		setPlaying(true);
-		const tl = gsap.timeline({
-			onComplete: () => setPlaying(false),
-		});
-		tl.fromTo(
-			".tl-step-1",
-			{ opacity: 0, x: -50 },
-			{ duration: 0.4, ease: "power2.out", opacity: 1, x: 0 },
-		)
-			.fromTo(
-				".tl-step-2",
-				{ opacity: 0, scale: 0.8, y: 20 },
-				{ duration: 0.4, ease: "back.out(1.5)", opacity: 1, scale: 1, y: 0 },
-			)
-			.fromTo(
-				".tl-step-3",
-				{ opacity: 0, x: 50 },
+	const { containerRef, play, playing } = useGsapAnimation(
+		(_container, done) => {
+			const tl = gsap.timeline({ onComplete: done });
+			tl.fromTo(
+				".tl-step-1",
+				{ opacity: 0, x: -50 },
 				{ duration: 0.4, ease: "power2.out", opacity: 1, x: 0 },
-			);
-	});
+			)
+				.fromTo(
+					".tl-step-2",
+					{ opacity: 0, scale: 0.8, y: 20 },
+					{ duration: 0.4, ease: "back.out(1.5)", opacity: 1, scale: 1, y: 0 },
+				)
+				.fromTo(
+					".tl-step-3",
+					{ opacity: 0, x: 50 },
+					{ duration: 0.4, ease: "power2.out", opacity: 1, x: 0 },
+				);
+		},
+	);
 
 	return (
 		<ShowcaseCard
@@ -163,7 +151,7 @@ function GsapTimelineDemo() {
 				<button
 					type="button"
 					className="btn btn-sm btn-info w-full"
-					onClick={playTimeline}
+					onClick={play}
 					disabled={playing}
 				>
 					{playing
@@ -245,28 +233,22 @@ function TextRevealDemo() {
 
 function ElasticBounceDemo() {
 	const { t } = useTranslation("showcase");
-	const containerRef = useRef<HTMLDivElement>(null);
-	const [playing, setPlaying] = useState(false);
-	const { contextSafe } = useGSAP({ scope: containerRef });
-
-	const playElastic = contextSafe(() => {
-		if (playing) {
-			return;
-		}
-		setPlaying(true);
-		gsap.fromTo(
-			".elastic-ball",
-			{ scale: 0, y: -40 },
-			{
-				duration: 1.2,
-				ease: "elastic.out(1, 0.3)",
-				onComplete: () => setPlaying(false),
-				scale: 1,
-				stagger: 0.15,
-				y: 0,
-			},
-		);
-	});
+	const { containerRef, play, playing } = useGsapAnimation(
+		(_container, done) => {
+			gsap.fromTo(
+				".elastic-ball",
+				{ scale: 0, y: -40 },
+				{
+					duration: 1.2,
+					ease: "elastic.out(1, 0.3)",
+					onComplete: done,
+					scale: 1,
+					stagger: 0.15,
+					y: 0,
+				},
+			);
+		},
+	);
 
 	return (
 		<ShowcaseCard
@@ -291,7 +273,7 @@ function ElasticBounceDemo() {
 				<button
 					type="button"
 					className="btn btn-sm btn-primary w-full gap-2"
-					onClick={playElastic}
+					onClick={play}
 					disabled={playing}
 				>
 					<Sparkles size={14} />
@@ -306,44 +288,36 @@ function ElasticBounceDemo() {
 
 function MorphingShapesDemo() {
 	const { t } = useTranslation("showcase");
-	const containerRef = useRef<HTMLDivElement>(null);
-	const [playing, setPlaying] = useState(false);
-	const { contextSafe } = useGSAP({ scope: containerRef });
+	const { containerRef, play, playing } = useGsapAnimation(
+		(_container, done) => {
+			const tl = gsap.timeline({ onComplete: done });
 
-	const playMorph = contextSafe(() => {
-		if (playing) {
-			return;
-		}
-		setPlaying(true);
-		const tl = gsap.timeline({
-			onComplete: () => setPlaying(false),
-		});
-
-		tl.to(".morph-shape", {
-			borderRadius: "50%",
-			duration: 0.5,
-			ease: "power2.inOut",
-			rotation: 180,
-			scale: 1.2,
-			stagger: 0.1,
-		})
-			.to(".morph-shape", {
-				borderRadius: "12px",
+			tl.to(".morph-shape", {
+				borderRadius: "50%",
 				duration: 0.5,
 				ease: "power2.inOut",
-				rotation: 360,
-				scale: 0.8,
+				rotation: 180,
+				scale: 1.2,
 				stagger: 0.1,
 			})
-			.to(".morph-shape", {
-				borderRadius: "8px",
-				duration: 0.4,
-				ease: "back.out(1.7)",
-				rotation: 0,
-				scale: 1,
-				stagger: 0.1,
-			});
-	});
+				.to(".morph-shape", {
+					borderRadius: "12px",
+					duration: 0.5,
+					ease: "power2.inOut",
+					rotation: 360,
+					scale: 0.8,
+					stagger: 0.1,
+				})
+				.to(".morph-shape", {
+					borderRadius: "8px",
+					duration: 0.4,
+					ease: "back.out(1.7)",
+					rotation: 0,
+					scale: 1,
+					stagger: 0.1,
+				});
+		},
+	);
 
 	return (
 		<ShowcaseCard
@@ -362,7 +336,7 @@ function MorphingShapesDemo() {
 				<button
 					type="button"
 					className="btn btn-sm btn-warning w-full"
-					onClick={playMorph}
+					onClick={play}
 					disabled={playing}
 				>
 					{playing
@@ -422,29 +396,23 @@ function FlipCardDemo() {
 
 function WaveAnimationDemo() {
 	const { t } = useTranslation("showcase");
-	const containerRef = useRef<HTMLDivElement>(null);
-	const [playing, setPlaying] = useState(false);
-	const { contextSafe } = useGSAP({ scope: containerRef });
-
-	const playWave = contextSafe(() => {
-		if (playing) {
-			return;
-		}
-		setPlaying(true);
-		gsap.fromTo(
-			".wave-bar",
-			{ scaleY: 0.3 },
-			{
-				duration: 0.4,
-				ease: "sine.inOut",
-				onComplete: () => setPlaying(false),
-				repeat: 3,
-				scaleY: 1,
-				stagger: { each: 0.05, repeat: -1, yoyo: true },
-				yoyo: true,
-			},
-		);
-	});
+	const { containerRef, play, playing } = useGsapAnimation(
+		(_container, done) => {
+			gsap.fromTo(
+				".wave-bar",
+				{ scaleY: 0.3 },
+				{
+					duration: 0.4,
+					ease: "sine.inOut",
+					onComplete: done,
+					repeat: 3,
+					scaleY: 1,
+					stagger: { each: 0.05, repeat: -1, yoyo: true },
+					yoyo: true,
+				},
+			);
+		},
+	);
 
 	return (
 		<ShowcaseCard
@@ -464,7 +432,7 @@ function WaveAnimationDemo() {
 				<button
 					type="button"
 					className="btn btn-sm btn-secondary w-full"
-					onClick={playWave}
+					onClick={play}
 					disabled={playing}
 				>
 					{playing ? t("gsap.wave.playing") : t("gsap.wave.playWave")}
@@ -476,43 +444,37 @@ function WaveAnimationDemo() {
 
 function ParticleExplosionDemo() {
 	const { t } = useTranslation("showcase");
-	const containerRef = useRef<HTMLDivElement>(null);
-	const [playing, setPlaying] = useState(false);
-	const { contextSafe } = useGSAP({ scope: containerRef });
+	const { containerRef, play, playing } = useGsapAnimation(
+		(_container, done) => {
+			const particles = _container.querySelectorAll(".particle");
 
-	const explode = contextSafe(() => {
-		if (playing) {
-			return;
-		}
-		setPlaying(true);
-		const particles = containerRef.current?.querySelectorAll(".particle") ?? [];
+			gsap.set(particles, { opacity: 1, scale: 1, x: 0, y: 0 });
 
-		gsap.set(particles, { opacity: 1, scale: 1, x: 0, y: 0 });
-
-		gsap.to(particles, {
-			duration: 0.9,
-			ease: "power3.out",
-			onComplete: () => {
-				gsap.to(particles, {
-					duration: 0.5,
-					ease: "back.out(1.7)",
-					onComplete: () => setPlaying(false),
-					opacity: 1,
-					rotation: 0,
-					scale: 1,
-					stagger: { each: 0.02, from: "edges" },
-					x: 0,
-					y: 0,
-				});
-			},
-			opacity: 0,
-			rotation: () => Math.random() * 360,
-			scale: () => Math.random() * 1.5 + 0.5,
-			stagger: { each: 0.02, from: "center" },
-			x: () => (Math.random() - 0.5) * 200,
-			y: () => (Math.random() - 0.5) * 200,
-		});
-	});
+			gsap.to(particles, {
+				duration: 0.9,
+				ease: "power3.out",
+				onComplete: () => {
+					gsap.to(particles, {
+						duration: 0.5,
+						ease: "back.out(1.7)",
+						onComplete: done,
+						opacity: 1,
+						rotation: 0,
+						scale: 1,
+						stagger: { each: 0.02, from: "edges" },
+						x: 0,
+						y: 0,
+					});
+				},
+				opacity: 0,
+				rotation: () => secureRandom() * 360,
+				scale: () => secureRandom() * 1.5 + 0.5,
+				stagger: { each: 0.02, from: "center" },
+				x: () => (secureRandom() - 0.5) * 200,
+				y: () => (secureRandom() - 0.5) * 200,
+			});
+		},
+	);
 
 	const COLORS = [
 		"bg-primary",
@@ -545,7 +507,7 @@ function ParticleExplosionDemo() {
 				<button
 					type="button"
 					className="btn btn-sm btn-error w-full gap-2"
-					onClick={explode}
+					onClick={play}
 					disabled={playing}
 				>
 					<Sparkles size={14} />
@@ -668,7 +630,7 @@ function TypewriterDemo() {
 					}
 				},
 				[],
-				`+=${0.05 + Math.random() * 0.06}`,
+				`+=${0.05 + secureRandom() * 0.06}`,
 			);
 		}
 	});
@@ -711,37 +673,30 @@ function OrbitalDemo() {
 	const toggle = () => {
 		setActive((a) => {
 			const next = !a;
-			if (!containerRef.current) {
-				return next;
-			}
+			if (containerRef.current) {
+				const orbs = containerRef.current.querySelectorAll(".orbit-dot");
 
-			const orbs = containerRef.current.querySelectorAll(".orbit-dot");
-
-			if (next) {
-				orbs.forEach((orb, i) => {
-					gsap.to(orb, {
-						duration: 2 + i * 0.8,
-						ease: "none",
-						motionPath: {
-							path: `circle(${36 + i * 14}px at 50% 50%)`,
-						},
-						repeat: -1,
+				if (next) {
+					orbs.forEach((orb, i) => {
+						const radius = 36 + i * 14;
+						gsap.set(orb, {
+							transformOrigin: `${-radius + 6}px 50%`,
+						});
+						gsap.to(orb, {
+							duration: 2 + i * 0.8,
+							ease: "none",
+							repeat: -1,
+							rotation: 360,
+						});
 					});
-					gsap.to(orb, {
-						duration: 2 + i * 0.8,
-						ease: "none",
-						repeat: -1,
-						rotation: 360,
-						transformOrigin: `${-(36 + i * 14)}px 0px`,
+				} else {
+					gsap.killTweensOf(orbs);
+					gsap.to(orbs, {
+						duration: 0.5,
+						ease: "power2.out",
+						rotation: 0,
 					});
-				});
-			} else {
-				gsap.killTweensOf(orbs);
-				gsap.to(orbs, {
-					duration: 0.5,
-					ease: "power2.out",
-					rotation: 0,
-				});
+				}
 			}
 			return next;
 		});
@@ -790,45 +745,39 @@ function OrbitalDemo() {
 
 function LiquidMorphDemo() {
 	const { t } = useTranslation("showcase");
-	const containerRef = useRef<HTMLDivElement>(null);
-	const [playing, setPlaying] = useState(false);
-	const { contextSafe } = useGSAP({ scope: containerRef });
+	const { containerRef, play, playing } = useGsapAnimation(
+		(_container, done) => {
+			const blobs = _container.querySelectorAll(".blob");
+			const tl = gsap.timeline({ onComplete: done });
 
-	const play = contextSafe(() => {
-		if (playing) {
-			return;
-		}
-		setPlaying(true);
-		const blobs = containerRef.current?.querySelectorAll(".blob") ?? [];
-		const tl = gsap.timeline({ onComplete: () => setPlaying(false) });
-
-		tl.to(blobs, {
-			borderRadius: () =>
-				`${30 + Math.random() * 40}% ${30 + Math.random() * 40}% ${30 + Math.random() * 40}% ${30 + Math.random() * 40}%`,
-			duration: 0.8,
-			ease: "power2.inOut",
-			rotation: () => Math.random() * 90 - 45,
-			scale: () => 0.8 + Math.random() * 0.5,
-			stagger: 0.1,
-		})
-			.to(blobs, {
+			tl.to(blobs, {
 				borderRadius: () =>
-					`${30 + Math.random() * 40}% ${30 + Math.random() * 40}% ${30 + Math.random() * 40}% ${30 + Math.random() * 40}%`,
+					`${30 + secureRandom() * 40}% ${30 + secureRandom() * 40}% ${30 + secureRandom() * 40}% ${30 + secureRandom() * 40}%`,
 				duration: 0.8,
 				ease: "power2.inOut",
-				rotation: () => Math.random() * 120 - 60,
-				scale: () => 0.7 + Math.random() * 0.6,
+				rotation: () => secureRandom() * 90 - 45,
+				scale: () => 0.8 + secureRandom() * 0.5,
 				stagger: 0.1,
 			})
-			.to(blobs, {
-				borderRadius: "12px",
-				duration: 0.6,
-				ease: "back.out(1.4)",
-				rotation: 0,
-				scale: 1,
-				stagger: 0.08,
-			});
-	});
+				.to(blobs, {
+					borderRadius: () =>
+						`${30 + secureRandom() * 40}% ${30 + secureRandom() * 40}% ${30 + secureRandom() * 40}% ${30 + secureRandom() * 40}%`,
+					duration: 0.8,
+					ease: "power2.inOut",
+					rotation: () => secureRandom() * 120 - 60,
+					scale: () => 0.7 + secureRandom() * 0.6,
+					stagger: 0.1,
+				})
+				.to(blobs, {
+					borderRadius: "12px",
+					duration: 0.6,
+					ease: "back.out(1.4)",
+					rotation: 0,
+					scale: 1,
+					stagger: 0.08,
+				});
+		},
+	);
 
 	return (
 		<ShowcaseCard
@@ -882,52 +831,46 @@ const SHUFFLE_COLORS = [
 
 function ShuffleGridDemo() {
 	const { t } = useTranslation("showcase");
-	const containerRef = useRef<HTMLDivElement>(null);
-	const [playing, setPlaying] = useState(false);
-	const { contextSafe } = useGSAP({ scope: containerRef });
-
 	const [colors, setColors] = useState(SHUFFLE_COLORS);
 
-	const shuffle = contextSafe(() => {
-		if (playing) {
-			return;
-		}
-		setPlaying(true);
-		const items = containerRef.current?.querySelectorAll(".shuffle-item") ?? [];
+	const { containerRef, play, playing } = useGsapAnimation(
+		(_container, done) => {
+			const items = _container.querySelectorAll(".shuffle-item");
 
-		gsap.to(items, {
-			duration: 0.4,
-			ease: "power2.in",
-			onComplete: () => {
-				setColors((prev) => {
-					const next = [...prev];
-					for (let i = next.length - 1; i > 0; i--) {
-						const j = Math.floor(Math.random() * (i + 1));
-						next.splice(i, 1, ...next.splice(j, 1, next[i] as string));
-					}
-					return next;
-				});
+			gsap.to(items, {
+				duration: 0.4,
+				ease: "power2.in",
+				onComplete: () => {
+					setColors((prev) => {
+						const next = [...prev];
+						for (let i = next.length - 1; i > 0; i--) {
+							const j = Math.floor(secureRandom() * (i + 1));
+							next.splice(i, 1, ...next.splice(j, 1, next[i] as string));
+						}
+						return next;
+					});
 
-				gsap.to(items, {
-					duration: 0.5,
-					ease: "back.out(1.4)",
-					onComplete: () => setPlaying(false),
-					opacity: 1,
-					rotation: 0,
-					scale: 1,
-					stagger: { each: 0.03, from: "random" },
-					x: 0,
-					y: 0,
-				});
-			},
-			opacity: 0.5,
-			rotation: () => Math.random() * 360 - 180,
-			scale: 0.6,
-			stagger: { each: 0.02, from: "random" },
-			x: () => (Math.random() - 0.5) * 80,
-			y: () => (Math.random() - 0.5) * 80,
-		});
-	});
+					gsap.to(items, {
+						duration: 0.5,
+						ease: "back.out(1.4)",
+						onComplete: done,
+						opacity: 1,
+						rotation: 0,
+						scale: 1,
+						stagger: { each: 0.03, from: "random" },
+						x: 0,
+						y: 0,
+					});
+				},
+				opacity: 0.5,
+				rotation: () => secureRandom() * 360 - 180,
+				scale: 0.6,
+				stagger: { each: 0.02, from: "random" },
+				x: () => (secureRandom() - 0.5) * 80,
+				y: () => (secureRandom() - 0.5) * 80,
+			});
+		},
+	);
 
 	return (
 		<ShowcaseCard
@@ -946,7 +889,7 @@ function ShuffleGridDemo() {
 				<button
 					type="button"
 					className="btn btn-sm btn-warning w-full gap-2"
-					onClick={shuffle}
+					onClick={play}
 					disabled={playing}
 				>
 					<Shuffle size={14} />
@@ -961,7 +904,7 @@ function ShuffleGridDemo() {
 
 function PerspectiveTiltDemo() {
 	const { t } = useTranslation("showcase");
-	const cardRef = useRef<HTMLDivElement>(null);
+	const cardRef = useRef<HTMLElement>(null);
 
 	const onMove = (e: React.MouseEvent) => {
 		if (!cardRef.current) {
@@ -1000,9 +943,9 @@ function PerspectiveTiltDemo() {
 				className="flex flex-col items-center gap-4"
 				style={{ perspective: 800 }}
 			>
-				{/* biome-ignore lint/a11y/noStaticElementInteractions: decorative hover */}
-				<div
+				<figure
 					ref={cardRef}
+					aria-label={t("gsap.perspectiveTilt.hoverMove")}
 					onMouseMove={onMove}
 					onMouseLeave={onLeave}
 					className="flex h-32 w-full cursor-pointer flex-col items-center justify-center gap-2 rounded-xl bg-gradient-to-br from-primary/20 via-secondary/10 to-accent/15 shadow-lg"
@@ -1023,7 +966,7 @@ function PerspectiveTiltDemo() {
 					>
 						{t("gsap.perspectiveTilt.parallaxLayers")}
 					</p>
-				</div>
+				</figure>
 			</div>
 		</ShowcaseCard>
 	);
@@ -1031,41 +974,35 @@ function PerspectiveTiltDemo() {
 
 function GradientWaveBarsDemo() {
 	const { t } = useTranslation("showcase");
-	const containerRef = useRef<HTMLDivElement>(null);
-	const [playing, setPlaying] = useState(false);
-	const { contextSafe } = useGSAP({ scope: containerRef });
-
-	const play = contextSafe(() => {
-		if (playing) {
-			return;
-		}
-		setPlaying(true);
-		const bars = containerRef.current?.querySelectorAll(".gwave-bar") ?? [];
-		gsap.fromTo(
-			bars,
-			{ scaleY: 0.15 },
-			{
-				duration: 0.5,
-				ease: "sine.inOut",
-				onComplete: () => {
-					gsap.to(bars, {
-						duration: 0.3,
-						ease: "power2.out",
-						onComplete: () => setPlaying(false),
-						scaleY: 0.3,
-						stagger: 0.02,
-					});
+	const { containerRef, play, playing } = useGsapAnimation(
+		(_container, done) => {
+			const bars = _container.querySelectorAll(".gwave-bar");
+			gsap.fromTo(
+				bars,
+				{ scaleY: 0.15 },
+				{
+					duration: 0.5,
+					ease: "sine.inOut",
+					onComplete: () => {
+						gsap.to(bars, {
+							duration: 0.3,
+							ease: "power2.out",
+							onComplete: done,
+							scaleY: 0.3,
+							stagger: 0.02,
+						});
+					},
+					scaleY: 1,
+					stagger: {
+						each: 0.04,
+						from: "center",
+						repeat: 5,
+						yoyo: true,
+					},
 				},
-				scaleY: 1,
-				stagger: {
-					each: 0.04,
-					from: "center",
-					repeat: 5,
-					yoyo: true,
-				},
-			},
-		);
-	});
+			);
+		},
+	);
 
 	return (
 		<ShowcaseCard

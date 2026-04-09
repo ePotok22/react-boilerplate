@@ -58,7 +58,7 @@ export default function RadioGroup({
 							id={`${fieldId}-${opt.value}`}
 							name={name}
 							value={opt.value}
-							checked={value !== undefined ? value === opt.value : undefined}
+							checked={value === undefined ? undefined : value === opt.value}
 							disabled={disabled || opt.disabled}
 							onChange={onChange}
 							className="radio radio-sm radio-primary"

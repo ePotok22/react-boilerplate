@@ -1,6 +1,6 @@
 import gsap from "gsap";
 import { AlertCircle, CheckCircle2, Info, ShieldAlert, X } from "lucide-react";
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { cn } from "@/utils/cn";
 
 type AlertVariant = "info" | "success" | "warning" | "error";
@@ -60,7 +60,7 @@ export default function Alert({
 		);
 	}, []);
 
-	const handleDismiss = () => {
+	const handleDismiss = useCallback(() => {
 		if (!alertRef.current) {
 			onDismiss?.();
 			return;
@@ -76,7 +76,7 @@ export default function Alert({
 			paddingTop: 0,
 			x: 24,
 		});
-	};
+	}, [onDismiss]);
 
 	return (
 		<div

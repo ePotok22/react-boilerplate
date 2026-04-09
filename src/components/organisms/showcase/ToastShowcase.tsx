@@ -93,46 +93,42 @@ export default function ToastShowcase() {
 					<div className="space-y-3">
 						<div className="rounded-xl border border-base-content/8 bg-base-200/30 p-3">
 							<div className="space-y-2 text-xs">
-								<div className="flex items-center gap-2">
-									<span className="flex h-5 w-5 items-center justify-center rounded-lg bg-primary/10 text-[10px] text-primary">
-										↗
-									</span>
-									<span className="opacity-60">
-										{t("toast.animationFeatures.springSlide")}
-									</span>
-								</div>
-								<div className="flex items-center gap-2">
-									<span className="flex h-5 w-5 items-center justify-center rounded-lg bg-success/10 text-[10px] text-success">
-										⟳
-									</span>
-									<span className="opacity-60">
-										{t("toast.animationFeatures.iconBounce")}
-									</span>
-								</div>
-								<div className="flex items-center gap-2">
-									<span className="flex h-5 w-5 items-center justify-center rounded-lg bg-info/10 text-[10px] text-info">
-										▬
-									</span>
-									<span className="opacity-60">
-										{t("toast.animationFeatures.progressBar")}
-									</span>
-								</div>
-								<div className="flex items-center gap-2">
-									<span className="flex h-5 w-5 items-center justify-center rounded-lg bg-error/10 text-[10px] text-error">
-										↘
-									</span>
-									<span className="opacity-60">
-										{t("toast.animationFeatures.collapseDismiss")}
-									</span>
-								</div>
-								<div className="flex items-center gap-2">
-									<span className="flex h-5 w-5 items-center justify-center rounded-lg bg-warning/10 text-[10px] text-warning">
-										<Sparkles size={10} />
-									</span>
-									<span className="opacity-60">
-										{t("toast.animationFeatures.variantBorder")}
-									</span>
-								</div>
+								{[
+									{
+										color: "bg-primary/10 text-primary",
+										icon: "↗",
+										label: t("toast.animationFeatures.springSlide"),
+									},
+									{
+										color: "bg-success/10 text-success",
+										icon: "⟳",
+										label: t("toast.animationFeatures.iconBounce"),
+									},
+									{
+										color: "bg-info/10 text-info",
+										icon: "▬",
+										label: t("toast.animationFeatures.progressBar"),
+									},
+									{
+										color: "bg-error/10 text-error",
+										icon: "↘",
+										label: t("toast.animationFeatures.collapseDismiss"),
+									},
+									{
+										color: "bg-warning/10 text-warning",
+										icon: <Sparkles size={10} />,
+										label: t("toast.animationFeatures.variantBorder"),
+									},
+								].map((feature) => (
+									<div key={feature.label} className="flex items-center gap-2">
+										<span
+											className={`flex h-5 w-5 items-center justify-center rounded-lg text-[10px] ${feature.color}`}
+										>
+											{feature.icon}
+										</span>
+										<span className="opacity-60">{feature.label}</span>
+									</div>
+								))}
 							</div>
 						</div>
 						<div className="mockup-code text-xs">

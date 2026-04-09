@@ -1,6 +1,7 @@
 import gsap from "gsap";
 import {
 	type ReactNode,
+	useCallback,
 	useEffect,
 	useEffectEvent,
 	useLayoutEffect,
@@ -80,7 +81,7 @@ export default function Tabs({
 		gsap.to(indicator, shared);
 	});
 
-	const moveGlow = (tab: HTMLButtonElement | null) => {
+	const moveGlow = useCallback((tab: HTMLButtonElement | null) => {
 		const glow = glowRef.current;
 		const tablist = tablistRef.current;
 		if (!glow || !tablist) {
@@ -104,36 +105,9 @@ export default function Tabs({
 			x: tabRect.left - listRect.left,
 			y: tabRect.top - listRect.top,
 		});
-	};
+	}, []);
 
-	useLayoutEffect(() => {
-		moveIndicator(active, false);
-
-		if (!mounted.current && wrapperRef.current) {
-			mounted.current = true;
-			const tabs = wrapperRef.current.querySelectorAll(".ds-tab");
-			gsap.fromTo(
-				tabs,
-				{ opacity: 0, y: 8 },
-				{
-					delay: 0.05,
-					duration: 0.4,
-					ease: "power3.out",
-					opacity: 1,
-					stagger: 0.06,
-					y: 0,
-				},
-			);
-		}
-	}, [active]);
-
-	useEffect(() => {
-		const handleResize = () => moveIndicator(active, false);
-		window.addEventListener("resize", handleResize);
-		return () => window.removeEventListener("resize", handleResize);
-	}, [active]);
-
-	const animatePanel = (index: number, prev: number) => {
+	const animatePanel = useCallback((index: number, prev: number) => {
 		const panel = panelRefs.current.get(index);
 		if (!panel || index === prev) {
 			return;
@@ -152,28 +126,62 @@ export default function Tabs({
 				opacity: 1,
 			},
 		);
-	};
+	}, []);
 
-	const handleSelect = (index: number) => {
-		if (items[index]?.disabled) {
-			return;
+	const prevActive = useRef(defaultIndex);
+
+	useLayoutEffect(() => {
+		const shouldAnimate = mounted.current && prevActive.current !== active;
+		moveIndicator(active, shouldAnimate);
+
+		if (shouldAnimate) {
+			requestAnimationFrame(() => animatePanel(active, prevActive.current));
 		}
-		const prev = active;
-		setActive(index);
-		onChange?.(index);
-		moveIndicator(index, true);
+		prevActive.current = active;
 
-		const tab = tabRefs.current[index];
-		if (tab) {
+		if (!mounted.current && wrapperRef.current) {
+			mounted.current = true;
+			const tabs = wrapperRef.current.querySelectorAll(".ds-tab");
 			gsap.fromTo(
-				tab,
-				{ scale: 0.96 },
-				{ duration: 0.35, ease: "elastic.out(1, 0.6)", scale: 1 },
+				tabs,
+				{ opacity: 0, y: 8 },
+				{
+					delay: 0.05,
+					duration: 0.4,
+					ease: "power3.out",
+					opacity: 1,
+					stagger: 0.06,
+					y: 0,
+				},
 			);
 		}
+	}, [active, animatePanel]);
 
-		requestAnimationFrame(() => animatePanel(index, prev));
-	};
+	useEffect(() => {
+		const handleResize = () => moveIndicator(active, false);
+		window.addEventListener("resize", handleResize);
+		return () => window.removeEventListener("resize", handleResize);
+	}, [active]);
+
+	const handleSelect = useCallback(
+		(index: number) => {
+			if (items[index]?.disabled) {
+				return;
+			}
+			setActive(index);
+			onChange?.(index);
+
+			const tab = tabRefs.current[index];
+			if (tab) {
+				gsap.fromTo(
+					tab,
+					{ scale: 0.96 },
+					{ duration: 0.35, ease: "elastic.out(1, 0.6)", scale: 1 },
+				);
+			}
+		},
+		[items, onChange],
+	);
 
 	return (
 		<div ref={wrapperRef} className={cn("ds-tabs-wrapper", className)}>

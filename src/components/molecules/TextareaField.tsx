@@ -20,7 +20,7 @@ export default function TextareaField({
 	ref,
 	...props
 }: Readonly<TextareaFieldProps>) {
-	const fieldId = id || `field-${label.toLowerCase().replace(/\s+/g, "-")}`;
+	const fieldId = id || `field-${label.toLowerCase().replaceAll(/\s+/g, "-")}`;
 	return (
 		<fieldset className="fieldset space-y-1">
 			<label className="label ds-label" htmlFor={fieldId}>

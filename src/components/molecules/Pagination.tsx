@@ -5,7 +5,7 @@ import {
 	ChevronsLeft,
 	ChevronsRight,
 } from "lucide-react";
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { cn } from "@/utils/cn";
 
 interface PaginationProps {
@@ -118,9 +118,12 @@ export default function Pagination({
 		prevPageRef.current = currentPage;
 	}, [currentPage]);
 
-	const handlePageChange = (page: number) => {
-		onPageChange(page);
-	};
+	const handlePageChange = useCallback(
+		(page: number) => {
+			onPageChange(page);
+		},
+		[onPageChange],
+	);
 
 	if (totalPages <= 1) {
 		return null;
@@ -191,7 +194,7 @@ export default function Pagination({
 							btnSizeMap[size],
 							currentPage === page && "ds-page-btn-active",
 						)}
-						onClick={() => handlePageChange(page as number)}
+						onClick={() => handlePageChange(page)}
 						onMouseEnter={(e) => animatePageHover(e.currentTarget, true)}
 						onMouseLeave={(e) => animatePageHover(e.currentTarget, false)}
 						aria-current={currentPage === page ? "page" : undefined}

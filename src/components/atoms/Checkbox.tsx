@@ -16,7 +16,8 @@ export default function Checkbox({
 	ref,
 	...props
 }: Readonly<CheckboxProps>) {
-	const fieldId = id || `checkbox-${label.toLowerCase().replace(/\s+/g, "-")}`;
+	const fieldId =
+		id || `checkbox-${label.toLowerCase().replaceAll(/\s+/g, "-")}`;
 	return (
 		<div className="space-y-1">
 			<label

@@ -1,6 +1,6 @@
 import { cn } from "@/utils/cn";
 
-type BadgeVariant =
+export type BadgeVariant =
 	| "primary"
 	| "secondary"
 	| "accent"

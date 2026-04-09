@@ -25,6 +25,21 @@ import ShowcaseCard from "@/components/organisms/showcase/ShowcaseCard";
 import { useAuthStore } from "@/stores/auth.store";
 import type { UserRole } from "@/types/auth";
 
+function CodeMockup({
+	lines,
+	className = "text-[10px]",
+}: Readonly<{ lines: string[]; className?: string }>) {
+	return (
+		<div className={`mockup-code ${className}`}>
+			{lines.map((line, i) => (
+				<pre key={line} data-prefix={(i + 1).toString()}>
+					<code>{line}</code>
+				</pre>
+			))}
+		</div>
+	);
+}
+
 const MOCK_USERS: Record<
 	string,
 	{ name: string; email: string; role: UserRole }
@@ -87,7 +102,31 @@ function AuthDemoCard() {
 					</Alert>
 				)}
 
-				{!isAuthenticated ? (
+				{isAuthenticated ? (
+					<div className="space-y-3">
+						<div className="flex items-center gap-3 rounded-xl bg-base-200/60 p-3">
+							<div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary/15">
+								<User size={16} className="text-primary" />
+							</div>
+							<div className="min-w-0 flex-1">
+								<p className="truncate font-semibold text-sm">{user?.name}</p>
+								<p className="truncate text-xs opacity-50">{user?.email}</p>
+							</div>
+							<span className="rounded-full bg-success/15 px-2 py-0.5 font-semibold text-[10px] text-success">
+								{user?.role}
+							</span>
+						</div>
+						<Button
+							variant="ghost"
+							size="sm"
+							className="w-full gap-2"
+							onClick={handleLogout}
+						>
+							<LogOut size={14} />
+							{t("auth.demo.logOut")}
+						</Button>
+					</div>
+				) : (
 					<div className="space-y-3">
 						<div className="flex gap-1.5">
 							{Object.entries(MOCK_USERS).map(([key, val]) => (
@@ -113,30 +152,6 @@ function AuthDemoCard() {
 						>
 							<LogIn size={14} />
 							{isLoading ? t("auth.demo.signingIn") : t("auth.demo.signIn")}
-						</Button>
-					</div>
-				) : (
-					<div className="space-y-3">
-						<div className="flex items-center gap-3 rounded-xl bg-base-200/60 p-3">
-							<div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary/15">
-								<User size={16} className="text-primary" />
-							</div>
-							<div className="min-w-0 flex-1">
-								<p className="truncate font-semibold text-sm">{user?.name}</p>
-								<p className="truncate text-xs opacity-50">{user?.email}</p>
-							</div>
-							<span className="rounded-full bg-success/15 px-2 py-0.5 font-semibold text-[10px] text-success">
-								{user?.role}
-							</span>
-						</div>
-						<Button
-							variant="ghost"
-							size="sm"
-							className="w-full gap-2"
-							onClick={handleLogout}
-						>
-							<LogOut size={14} />
-							{t("auth.demo.logOut")}
 						</Button>
 					</div>
 				)}
@@ -192,17 +207,13 @@ function ProtectedRouteCard() {
 						</p>
 					</div>
 				</div>
-				<div className="mockup-code text-[10px]">
-					<pre data-prefix="1">
-						<code>{'<ProtectedRoute roles={["admin"]}>'}</code>
-					</pre>
-					<pre data-prefix="2">
-						<code>{"  <Route path='settings' ... />"}</code>
-					</pre>
-					<pre data-prefix="3">
-						<code>{"</ProtectedRoute>"}</code>
-					</pre>
-				</div>
+				<CodeMockup
+					lines={[
+						'<ProtectedRoute roles={["admin"]}>',
+						"  <Route path='settings' ... />",
+						"</ProtectedRoute>",
+					]}
+				/>
 			</div>
 		</ShowcaseCard>
 	);
@@ -407,17 +418,9 @@ export function ErrorShowcase() {
 								</p>
 							</div>
 						</div>
-						<div className="mockup-code text-[10px]">
-							<pre data-prefix="1">
-								<code>{"<ErrorBoundary"}</code>
-							</pre>
-							<pre data-prefix="2">
-								<code>{"  fallback={<ErrorPage />}"}</code>
-							</pre>
-							<pre data-prefix="3">
-								<code>{">"}</code>
-							</pre>
-						</div>
+						<CodeMockup
+							lines={["<ErrorBoundary", "  fallback={<ErrorPage />}", ">"]}
+						/>
 					</div>
 				</ShowcaseCard>
 
@@ -478,6 +481,40 @@ export function ErrorShowcase() {
 
 export function TypesShowcase() {
 	const { t } = useTranslation("showcase");
+
+	const typeCards = [
+		{
+			codeLines: [
+				"interface User {",
+				"  id: string; email: string;",
+				"  name: string; role: UserRole;",
+				"  emailVerified: boolean;",
+				"}",
+			],
+			color: "primary",
+			description: t("types.authTypes.description"),
+			filename: "AUTH.TS",
+			icon: <FileCode2 size={11} className="text-primary opacity-50" />,
+			title: t("types.authTypes.title"),
+			types: ["User", "AuthTokens", "LoginCredentials", "UserRole"],
+		},
+		{
+			codeLines: [
+				"interface PaginatedResponse<T> {",
+				"  data: T[];",
+				"  meta: { page, limit,",
+				"    total, totalPages }",
+				"}",
+			],
+			color: "secondary",
+			description: t("types.apiTypes.description"),
+			filename: "API.TS",
+			icon: <Code2 size={11} className="text-secondary opacity-50" />,
+			title: t("types.apiTypes.title"),
+			types: ["PaginatedResponse", "ApiError", "ApiResponse"],
+		},
+	];
+
 	return (
 		<Section
 			id="types"
@@ -485,88 +522,39 @@ export function TypesShowcase() {
 			badge={t("types.badge")}
 		>
 			<div className="grid gap-4 sm:grid-cols-2">
-				<ShowcaseCard
-					title={t("types.authTypes.title")}
-					description={t("types.authTypes.description")}
-				>
-					<div className="space-y-2.5">
-						<div className="flex items-center gap-2 rounded-lg bg-base-200/40 px-2.5 py-1.5">
-							<FileCode2 size={11} className="text-primary opacity-50" />
-							<span className="font-semibold text-[10px] tracking-wider opacity-40">
-								AUTH.TS
-							</span>
-						</div>
-						<div className="mockup-code text-xs">
-							<pre data-prefix="">
-								<code>{"interface User {"}</code>
-							</pre>
-							<pre data-prefix="">
-								<code>{"  id: string; email: string;"}</code>
-							</pre>
-							<pre data-prefix="">
-								<code>{"  name: string; role: UserRole;"}</code>
-							</pre>
-							<pre data-prefix="">
-								<code>{"  emailVerified: boolean;"}</code>
-							</pre>
-							<pre data-prefix="">
-								<code>{"}"}</code>
-							</pre>
-						</div>
-						<div className="flex flex-wrap gap-1">
-							{["User", "AuthTokens", "LoginCredentials", "UserRole"].map(
-								(type) => (
+				{typeCards.map((card) => (
+					<ShowcaseCard
+						key={card.filename}
+						title={card.title}
+						description={card.description}
+					>
+						<div className="space-y-2.5">
+							<div className="flex items-center gap-2 rounded-lg bg-base-200/40 px-2.5 py-1.5">
+								{card.icon}
+								<span className="font-semibold text-[10px] tracking-wider opacity-40">
+									{card.filename}
+								</span>
+							</div>
+							<div className="mockup-code text-xs">
+								{card.codeLines.map((line) => (
+									<pre key={line} data-prefix="">
+										<code>{line}</code>
+									</pre>
+								))}
+							</div>
+							<div className="flex flex-wrap gap-1">
+								{card.types.map((type) => (
 									<span
 										key={type}
-										className="rounded-md bg-primary/8 px-1.5 py-0.5 font-mono text-[9px] text-primary"
+										className={`rounded-md bg-${card.color}/8 px-1.5 py-0.5 font-mono text-[9px] text-${card.color}`}
 									>
 										{type}
 									</span>
-								),
-							)}
+								))}
+							</div>
 						</div>
-					</div>
-				</ShowcaseCard>
-				<ShowcaseCard
-					title={t("types.apiTypes.title")}
-					description={t("types.apiTypes.description")}
-				>
-					<div className="space-y-2.5">
-						<div className="flex items-center gap-2 rounded-lg bg-base-200/40 px-2.5 py-1.5">
-							<Code2 size={11} className="text-secondary opacity-50" />
-							<span className="font-semibold text-[10px] tracking-wider opacity-40">
-								API.TS
-							</span>
-						</div>
-						<div className="mockup-code text-xs">
-							<pre data-prefix="">
-								<code>{"interface PaginatedResponse<T> {"}</code>
-							</pre>
-							<pre data-prefix="">
-								<code>{"  data: T[];"}</code>
-							</pre>
-							<pre data-prefix="">
-								<code>{"  meta: { page, limit,"}</code>
-							</pre>
-							<pre data-prefix="">
-								<code>{"    total, totalPages }"}</code>
-							</pre>
-							<pre data-prefix="">
-								<code>{"}"}</code>
-							</pre>
-						</div>
-						<div className="flex flex-wrap gap-1">
-							{["PaginatedResponse", "ApiError", "ApiResponse"].map((type) => (
-								<span
-									key={type}
-									className="rounded-md bg-secondary/8 px-1.5 py-0.5 font-mono text-[9px] text-secondary"
-								>
-									{type}
-								</span>
-							))}
-						</div>
-					</div>
-				</ShowcaseCard>
+					</ShowcaseCard>
+				))}
 			</div>
 		</Section>
 	);

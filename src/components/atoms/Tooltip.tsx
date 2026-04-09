@@ -1,4 +1,4 @@
-import { type ReactNode, useRef, useState } from "react";
+import { type ReactNode, useCallback, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { cn } from "@/utils/cn";
 
@@ -24,7 +24,7 @@ export default function Tooltip({
 	const triggerRef = useRef<HTMLSpanElement>(null);
 	const timerRef = useRef<ReturnType<typeof setTimeout>>(null);
 
-	const show = () => {
+	const show = useCallback(() => {
 		timerRef.current = setTimeout(() => {
 			if (!triggerRef.current) {
 				return;
@@ -56,18 +56,18 @@ export default function Tooltip({
 			setPos(positions[placement]);
 			setVisible(true);
 		}, delay);
-	};
+	}, [delay, placement]);
 
-	const hide = () => {
+	const hide = useCallback(() => {
 		if (timerRef.current) {
 			clearTimeout(timerRef.current);
 		}
 		setVisible(false);
-	};
+	}, []);
 
 	return (
 		<>
-			{/* biome-ignore lint/a11y/noStaticElementInteractions: tooltip trigger wrapper */}
+			{/* biome-ignore lint/a11y/noStaticElementInteractions: Wrapper delegates focus/hover to child interactive elements for tooltip positioning */}
 			<span
 				ref={triggerRef}
 				onMouseEnter={show}

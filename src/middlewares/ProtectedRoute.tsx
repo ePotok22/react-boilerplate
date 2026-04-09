@@ -27,10 +27,7 @@ export default function ProtectedRoute({
 
 	if (!isAuthenticated) {
 		return (
-			<Navigate
-				to={redirectTo as string}
-				search={{ redirect: location.pathname }}
-			/>
+			<Navigate to={redirectTo} search={{ redirect: location.pathname }} />
 		);
 	}
 

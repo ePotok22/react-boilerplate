@@ -34,6 +34,11 @@ export default function LoadingOverlay({
 				{ duration: 0.4, ease: "power3.out", opacity: 1, scale: 1 },
 			);
 		}
+
+		const ring = ringRef.current;
+		return () => {
+			gsap.killTweensOf(ring);
+		};
 	}, []);
 
 	return (

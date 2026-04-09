@@ -1,6 +1,12 @@
 import gsap from "gsap";
 import { ChevronDown, DatabaseZap } from "lucide-react";
-import { useEffect, useEffectEvent, useRef, useState } from "react";
+import {
+	useCallback,
+	useEffect,
+	useEffectEvent,
+	useRef,
+	useState,
+} from "react";
 import { useTranslation } from "react-i18next";
 import Pagination from "@/molecules/Pagination";
 import { cn } from "@/utils/cn";
@@ -21,7 +27,13 @@ function getCellValue<T>(row: T, col: Column<T>, index: number) {
 	if (value == null) {
 		return "";
 	}
-	return String(value);
+	if (typeof value === "string") {
+		return value;
+	}
+	if (typeof value === "number" || typeof value === "boolean") {
+		return `${value}`;
+	}
+	return JSON.stringify(value);
 }
 
 interface TableProps<T> {
@@ -256,9 +268,88 @@ export default function Table<T extends object>({
 		}
 	}, [activePage, pageSize]);
 
+	const handleRowClick = useCallback(
+		(row: T, index: number) => {
+			onRowClick?.(row, index);
+		},
+		[onRowClick],
+	);
+
+	const handlePageSizeChange = useCallback(
+		(size: number) => {
+			onPageSizeChange?.(size);
+			setSizeOpen(false);
+		},
+		[onPageSizeChange],
+	);
+
 	const displayData = pageSize ? paginatedData : data;
 	const showFooter =
 		pageSize && (totalPages > 1 || pageSizeOptions) && !loading;
+
+	const renderTableBody = () => {
+		if (loading) {
+			return Array.from(
+				{ length: SKELETON_ROWS },
+				(_, i) => `skeleton-${i}`,
+			).map((key, rowIdx) => (
+				<tr key={key} className="ds-table-row">
+					{columns.map((col, colIdx) => (
+						<td key={col.key} className="ds-table-td">
+							<span
+								className={cn(
+									"ds-table-skeleton",
+									SKELETON_WIDTHS[(rowIdx + colIdx) % SKELETON_WIDTHS.length],
+								)}
+							/>
+						</td>
+					))}
+				</tr>
+			));
+		}
+
+		if (displayData.length === 0) {
+			return (
+				<tr>
+					<td colSpan={columns.length} className="ds-table-empty">
+						<div className="ds-table-empty-inner">
+							<span className="ds-table-empty-icon">
+								{emptyIcon ?? <DatabaseZap size={40} />}
+							</span>
+							<span className="ds-table-empty-title">
+								{emptyMessage ?? t("table.noData")}
+							</span>
+							{emptyDescription && (
+								<span className="ds-table-empty-desc">{emptyDescription}</span>
+							)}
+						</div>
+					</td>
+				</tr>
+			);
+		}
+
+		return displayData.map((row, index) => (
+			<tr
+				key={
+					rowKey
+						? rowKey(row, index)
+						: String((row as Record<string, string | number>).id ?? index)
+				}
+				className={cn(
+					"ds-table-row",
+					hoverable && "ds-table-row-hover",
+					onRowClick && "cursor-pointer",
+				)}
+				onClick={onRowClick ? () => handleRowClick(row, index) : undefined}
+			>
+				{columns.map((col) => (
+					<td key={col.key} className={cn("ds-table-td", col.className)}>
+						{getCellValue(row, col, index)}
+					</td>
+				))}
+			</tr>
+		));
+	};
 
 	return (
 		<div className={cn("ds-table-outer", className)}>
@@ -283,74 +374,7 @@ export default function Table<T extends object>({
 							))}
 						</tr>
 					</thead>
-					<tbody>
-						{loading ? (
-							Array.from(
-								{ length: SKELETON_ROWS },
-								(_, i) => `skeleton-${i}`,
-							).map((key, rowIdx) => (
-								<tr key={key} className="ds-table-row">
-									{columns.map((col, colIdx) => (
-										<td key={col.key} className="ds-table-td">
-											<span
-												className={cn(
-													"ds-table-skeleton",
-													SKELETON_WIDTHS[
-														(rowIdx + colIdx) % SKELETON_WIDTHS.length
-													],
-												)}
-											/>
-										</td>
-									))}
-								</tr>
-							))
-						) : displayData.length === 0 ? (
-							<tr>
-								<td colSpan={columns.length} className="ds-table-empty">
-									<div className="ds-table-empty-inner">
-										<span className="ds-table-empty-icon">
-											{emptyIcon ?? <DatabaseZap size={40} />}
-										</span>
-										<span className="ds-table-empty-title">
-											{emptyMessage ?? t("table.noData")}
-										</span>
-										{emptyDescription && (
-											<span className="ds-table-empty-desc">
-												{emptyDescription}
-											</span>
-										)}
-									</div>
-								</td>
-							</tr>
-						) : (
-							displayData.map((row, index) => (
-								<tr
-									key={
-										rowKey
-											? rowKey(row, index)
-											: String((row as Record<string, unknown>).id ?? index)
-									}
-									className={cn(
-										"ds-table-row",
-										hoverable && "ds-table-row-hover",
-										onRowClick && "cursor-pointer",
-									)}
-									onClick={
-										onRowClick ? () => onRowClick(row, index) : undefined
-									}
-								>
-									{columns.map((col) => (
-										<td
-											key={col.key}
-											className={cn("ds-table-td", col.className)}
-										>
-											{getCellValue(row, col, index)}
-										</td>
-									))}
-								</tr>
-							))
-						)}
-					</tbody>
+					<tbody>{renderTableBody()}</tbody>
 				</table>
 			</div>
 			{showFooter && (
@@ -363,7 +387,7 @@ export default function Table<T extends object>({
 									type="button"
 									className="ds-table-pagesize-btn"
 									onClick={() => setSizeOpen((o) => !o)}
-									aria-haspopup="listbox"
+									aria-haspopup="menu"
 									aria-expanded={sizeOpen}
 								>
 									{t("table.perPage", { count: pageSize })}
@@ -376,27 +400,24 @@ export default function Table<T extends object>({
 									/>
 								</button>
 								{sizeOpen && (
-									<ul className="ds-table-pagesize-menu">
+									<div role="menu" className="ds-table-pagesize-menu">
 										{pageSizeOptions.map((opt) => (
-											<li key={opt}>
+											<div key={opt} role="none">
 												<button
 													type="button"
-													role="option"
-													aria-selected={opt === pageSize}
+													role="menuitem"
+													aria-current={opt === pageSize || undefined}
 													className={cn(
 														"ds-table-pagesize-option",
 														opt === pageSize && "ds-table-pagesize-active",
 													)}
-													onClick={() => {
-														onPageSizeChange(opt);
-														setSizeOpen(false);
-													}}
+													onClick={() => handlePageSizeChange(opt)}
 												>
 													{t("table.perPage", { count: opt })}
 												</button>
-											</li>
+											</div>
 										))}
-									</ul>
+									</div>
 								)}
 							</div>
 						)}

@@ -33,6 +33,16 @@ interface Product {
 	category: string;
 }
 
+function stockVariant(stock: number): "error" | "warning" | "success" {
+	if (stock === 0) {
+		return "error";
+	}
+	if (stock < 20) {
+		return "warning";
+	}
+	return "success";
+}
+
 const USERS: User[] = [
 	{
 		email: "alice@acme.io",
@@ -90,7 +100,7 @@ const PRODUCTS: Product[] = [
 		category: "Furniture",
 		id: 3,
 		name: "Standing Desk",
-		price: 449.0,
+		price: 449,
 		stock: 12,
 	},
 	{
@@ -128,6 +138,26 @@ export default function TableShowcase() {
 	const [filter, setFilter] = useState("");
 	const [page, setPage] = useState(1);
 	const [pageSize, setPageSize] = useState(3);
+
+	const productColumns = [
+		{ header: t("table.columns.product"), key: "name" },
+		{
+			header: t("table.columns.price"),
+			key: "price",
+			render: (row: Product) => (
+				<span className="font-mono">${row.price.toFixed(2)}</span>
+			),
+		},
+		{
+			header: t("table.columns.stock"),
+			key: "stock",
+			render: (row: Product) => (
+				<Badge variant={stockVariant(row.stock)} size="sm">
+					{row.stock === 0 ? "Out" : row.stock}
+				</Badge>
+			),
+		},
+	];
 
 	const filteredProducts = PRODUCTS.filter(
 		(p) =>
@@ -221,34 +251,7 @@ export default function TableShowcase() {
 					description={t("table.pagination.description")}
 				>
 					<Table<Product>
-						columns={[
-							{ header: t("table.columns.product"), key: "name" },
-							{
-								header: t("table.columns.price"),
-								key: "price",
-								render: (row) => (
-									<span className="font-mono">${row.price.toFixed(2)}</span>
-								),
-							},
-							{
-								header: t("table.columns.stock"),
-								key: "stock",
-								render: (row) => (
-									<Badge
-										variant={
-											row.stock === 0
-												? "error"
-												: row.stock < 20
-													? "warning"
-													: "success"
-										}
-										size="sm"
-									>
-										{row.stock === 0 ? "Out" : row.stock}
-									</Badge>
-								),
-							},
-						]}
+						columns={productColumns}
 						data={PRODUCTS}
 						variant="zebra"
 						pageSize={pageSize}
@@ -314,32 +317,7 @@ export default function TableShowcase() {
 						</InputGroup>
 						<Table<Product>
 							columns={[
-								{ header: t("table.columns.product"), key: "name" },
-								{
-									header: t("table.columns.price"),
-									key: "price",
-									render: (row) => (
-										<span className="font-mono">${row.price.toFixed(2)}</span>
-									),
-								},
-								{
-									header: t("table.columns.stock"),
-									key: "stock",
-									render: (row) => (
-										<Badge
-											variant={
-												row.stock === 0
-													? "error"
-													: row.stock < 20
-														? "warning"
-														: "success"
-											}
-											size="sm"
-										>
-											{row.stock === 0 ? "Out" : row.stock}
-										</Badge>
-									),
-								},
+								...productColumns,
 								{ header: t("table.columns.category"), key: "category" },
 							]}
 							data={filteredProducts}

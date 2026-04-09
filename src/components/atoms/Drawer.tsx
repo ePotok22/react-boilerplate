@@ -1,6 +1,12 @@
 import gsap from "gsap";
 import { X } from "lucide-react";
-import { type ReactNode, useEffect, useEffectEvent, useRef } from "react";
+import {
+	type ReactNode,
+	useCallback,
+	useEffect,
+	useEffectEvent,
+	useRef,
+} from "react";
 import { createPortal } from "react-dom";
 import { cn } from "@/utils/cn";
 
@@ -23,7 +29,7 @@ export default function Drawer({
 	side = "right",
 	title,
 }: Readonly<DrawerProps>) {
-	const backdropRef = useRef<HTMLDivElement>(null);
+	const backdropRef = useRef<HTMLButtonElement>(null);
 	const panelRef = useRef<HTMLDivElement>(null);
 
 	const onAnimateIn = useEffectEvent(() => {
@@ -42,7 +48,7 @@ export default function Drawer({
 		);
 	});
 
-	const onAnimateOut = useEffectEvent(() => {
+	const animateOut = useCallback(() => {
 		if (!backdropRef.current || !panelRef.current) {
 			return;
 		}
@@ -57,7 +63,7 @@ export default function Drawer({
 			onComplete: onClose,
 			x: side === "right" ? "100%" : "-100%",
 		});
-	});
+	}, [onClose, side]);
 
 	useEffect(() => {
 		if (open) {
@@ -71,12 +77,12 @@ export default function Drawer({
 		}
 		const handleKey = (e: KeyboardEvent) => {
 			if (e.key === "Escape") {
-				onAnimateOut();
+				animateOut();
 			}
 		};
 		document.addEventListener("keydown", handleKey);
 		return () => document.removeEventListener("keydown", handleKey);
-	}, [open]);
+	}, [open, animateOut]);
 
 	if (!open) {
 		return null;
@@ -84,12 +90,12 @@ export default function Drawer({
 
 	return createPortal(
 		<div className="ds-drawer-root">
-			{/* biome-ignore lint/a11y/useKeyWithClickEvents: backdrop close */}
-			{/* biome-ignore lint/a11y/noStaticElementInteractions: backdrop overlay */}
-			<div
+			<button
+				type="button"
 				ref={backdropRef}
 				className="ds-drawer-backdrop"
-				onClick={onAnimateOut}
+				aria-label="Close drawer"
+				onClick={animateOut}
 				style={{ opacity: 0 }}
 			/>
 			<div
@@ -109,7 +115,7 @@ export default function Drawer({
 						<button
 							type="button"
 							aria-label="Close drawer"
-							onClick={onAnimateOut}
+							onClick={animateOut}
 							className="ds-drawer-close"
 						>
 							<X size={18} />

@@ -24,7 +24,10 @@ export default class ErrorBoundary extends Component<
 		return { error, hasError: true };
 	}
 
-	componentDidCatch(_error: Error, _errorInfo: ErrorInfo) {}
+	componentDidCatch(_error: Error, _errorInfo: ErrorInfo) {
+		// Intentionally empty: error state is handled by getDerivedStateFromError.
+		// Override this method in a subclass to log errors to an external service.
+	}
 
 	render() {
 		if (this.state.hasError) {
@@ -55,7 +58,7 @@ export default class ErrorBoundary extends Component<
 						className="ds-btn btn-primary gap-2"
 						onClick={() => {
 							this.setState({ error: null, hasError: false });
-							window.location.reload();
+							globalThis.location.reload();
 						}}
 					>
 						<RefreshCw size={16} />

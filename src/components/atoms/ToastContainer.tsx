@@ -142,6 +142,13 @@ function ToastItem({
 				yoyo: true,
 			});
 		}
+
+		const el = itemRef.current;
+		return () => {
+			if (el) {
+				gsap.killTweensOf(el);
+			}
+		};
 	}, [toast.duration, index]);
 
 	const onDismiss = useEffectEvent(() => {

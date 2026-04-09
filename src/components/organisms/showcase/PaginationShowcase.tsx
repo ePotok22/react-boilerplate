@@ -169,44 +169,42 @@ export default function PaginationShowcase() {
 						<div className="divider my-0" />
 						<div className="rounded-xl border border-base-content/8 bg-base-200/30 p-3">
 							<div className="space-y-2 text-xs">
-								<div className="flex items-center gap-2">
-									<span className="flex h-5 w-5 items-center justify-center rounded-lg bg-primary/10 text-[10px] text-primary">
-										⟪
-									</span>
-									<span className="opacity-60">
-										{t("pagination.firstLast")}
-									</span>
-								</div>
-								<div className="flex items-center gap-2">
-									<span className="flex h-5 w-5 items-center justify-center rounded-lg bg-primary/10 text-[10px] text-primary">
-										✦
-									</span>
-									<span className="opacity-60">
-										{t("pagination.activeGlow")}
-									</span>
-								</div>
-								<div className="flex items-center gap-2">
-									<span className="flex h-5 w-5 items-center justify-center rounded-lg bg-primary text-[10px] text-primary-content">
-										◌
-									</span>
-									<span className="opacity-60">
-										{t("pagination.ripplePage")}
-									</span>
-								</div>
-								<div className="flex items-center gap-2">
-									<span className="flex h-5 w-5 items-center justify-center rounded-lg bg-primary/10 text-[10px] text-primary">
-										···
-									</span>
-									<span className="opacity-60">
-										{t("pagination.animatedBouncing")}
-									</span>
-								</div>
-								<div className="flex items-center gap-2">
-									<span className="flex h-5 w-5 items-center justify-center rounded-lg bg-primary/10 text-[10px] text-primary">
-										↕
-									</span>
-									<span className="opacity-60">{t("pagination.pageLift")}</span>
-								</div>
+								{[
+									{
+										color: "bg-primary/10 text-primary",
+										icon: "⟪",
+										label: t("pagination.firstLast"),
+									},
+									{
+										color: "bg-primary/10 text-primary",
+										icon: "✦",
+										label: t("pagination.activeGlow"),
+									},
+									{
+										color: "bg-primary text-primary-content",
+										icon: "◌",
+										label: t("pagination.ripplePage"),
+									},
+									{
+										color: "bg-primary/10 text-primary",
+										icon: "···",
+										label: t("pagination.animatedBouncing"),
+									},
+									{
+										color: "bg-primary/10 text-primary",
+										icon: "↕",
+										label: t("pagination.pageLift"),
+									},
+								].map((feature) => (
+									<div key={feature.label} className="flex items-center gap-2">
+										<span
+											className={`flex h-5 w-5 items-center justify-center rounded-lg text-[10px] ${feature.color}`}
+										>
+											{feature.icon}
+										</span>
+										<span className="opacity-60">{feature.label}</span>
+									</div>
+								))}
 							</div>
 						</div>
 						<div className="flex items-center gap-2 rounded-lg bg-base-200/50 p-2">

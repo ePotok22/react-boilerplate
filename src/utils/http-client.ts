@@ -38,14 +38,12 @@ export function createHttpClient(
 						return;
 					}
 
-					if (!refreshPromise) {
-						refreshPromise = useAuthStore
-							.getState()
-							.refreshTokens()
-							.finally(() => {
-								refreshPromise = null;
-							});
-					}
+					refreshPromise ??= useAuthStore
+						.getState()
+						.refreshTokens()
+						.finally(() => {
+							refreshPromise = null;
+						});
 
 					const success = await refreshPromise;
 					if (!success) {
@@ -112,7 +110,7 @@ export const httpClient = createHttpClient(
 
 export function sanitizeUrlParam(param: string): string {
 	return param
-		.replace(/[<>]/g, "") // Remove angle brackets
+		.replaceAll(/[<>]/g, "") // Remove angle brackets
 		.trim();
 }
 

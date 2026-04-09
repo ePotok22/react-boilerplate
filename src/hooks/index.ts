@@ -1,6 +1,7 @@
 export { useClickOutside } from "./useClickOutside";
 export { useDebounce } from "./useDebounce";
 export { useGSAP } from "./useGSAP";
+export { useGsapAnimation } from "./useGsapAnimation";
 export { useLocalStorage } from "./useLocalStorage";
 export { useMagneticHover } from "./useMagneticHover";
 export { useMediaQuery } from "./useMediaQuery";

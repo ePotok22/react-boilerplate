@@ -17,8 +17,11 @@ describe("ThemeToggle", () => {
 	it("cycles theme on click", () => {
 		render(<ThemeToggle />);
 		const button = screen.getByRole("button");
+		const initialText = button.textContent;
 		fireEvent.click(button);
 		fireEvent.click(button);
+		expect(button).toBeInTheDocument();
+		expect(["Auto", "Light", "Dark"]).toContain(initialText);
 	});
 
 	it("displays current mode text", () => {

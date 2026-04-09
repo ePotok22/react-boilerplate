@@ -36,7 +36,12 @@ export default function AtomsShowcase() {
 	const { t } = useTranslation("showcase");
 	const [drawerOpen, setDrawerOpen] = useState(false);
 	const [radioValue, setRadioValue] = useState("option1");
+	const [radioHValue, setRadioHValue] = useState("md");
 	const [tags, setTags] = useState(["React", "TypeScript", "Tailwind", "GSAP"]);
+
+	const removeTag = (tagToRemove: string) => {
+		setTags((prev) => prev.filter((t) => t !== tagToRemove));
+	};
 
 	return (
 		<Section
@@ -122,8 +127,8 @@ export default function AtomsShowcase() {
 								{ label: t("atoms.radioGroup.medium"), value: "md" },
 								{ label: t("atoms.radioGroup.large"), value: "lg" },
 							]}
-							value="md"
-							onChange={() => {}}
+							value={radioHValue}
+							onChange={(e) => setRadioHValue(e.target.value)}
 						/>
 					</div>
 				</ShowcaseCard>
@@ -146,9 +151,7 @@ export default function AtomsShowcase() {
 								<Tag
 									key={tag}
 									variant="primary"
-									onRemove={() =>
-										setTags((prev) => prev.filter((t) => t !== tag))
-									}
+									onRemove={() => removeTag(tag)}
 								>
 									{tag}
 								</Tag>

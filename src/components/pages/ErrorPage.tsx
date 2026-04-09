@@ -55,7 +55,7 @@ export default function ErrorPage() {
 			<button
 				type="button"
 				className="reveal-item ds-btn btn-primary gap-2"
-				onClick={() => window.location.reload()}
+				onClick={() => globalThis.location.reload()}
 			>
 				<RefreshCw size={16} />
 				{t("server.retry")}

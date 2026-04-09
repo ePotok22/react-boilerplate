@@ -3,6 +3,7 @@ import { Check, ChevronDown, X } from "lucide-react";
 import {
 	type ReactNode,
 	type Ref,
+	useCallback,
 	useEffect,
 	useEffectEvent,
 	useImperativeHandle,
@@ -46,6 +47,10 @@ type SelectFieldProps = {
 	ref?: Ref<HTMLInputElement>;
 } & (SingleSelectProps | MultiSelectProps);
 
+function toStringArray(value: string[] | string | undefined): string[] {
+	return Array.isArray(value) ? value : [];
+}
+
 export default function SelectField({
 	className,
 	defaultValue,
@@ -63,30 +68,31 @@ export default function SelectField({
 	ref,
 	value: controlledValue,
 }: Readonly<SelectFieldProps>) {
-	const fieldId = id || `field-${label.toLowerCase().replace(/\s+/g, "-")}`;
+	const fieldId = id || `field-${label.toLowerCase().replaceAll(/\s+/g, "-")}`;
 
 	const [open, setOpen] = useState(false);
 	const [portalReady, setPortalReady] = useState(false);
 
 	const [internalSingle, setInternalSingle] = useState<string>(
-		!multi ? ((defaultValue as string) ?? "") : "",
+		multi ? "" : String(defaultValue ?? ""),
 	);
 	const [internalMulti, setInternalMulti] = useState<string[]>(
-		multi ? ((defaultValue as string[]) ?? []) : [],
+		multi ? toStringArray(defaultValue) : [],
 	);
 
 	const selectedSingle =
-		!multi && controlledValue !== undefined
-			? (controlledValue as string)
-			: internalSingle;
+		controlledValue === undefined || multi
+			? internalSingle
+			: String(controlledValue);
 	const selectedMulti =
 		multi && controlledValue !== undefined
-			? (controlledValue as string[])
+			? toStringArray(controlledValue)
 			: internalMulti;
-	const triggerRef = useRef<HTMLButtonElement>(null);
+	const triggerRef = useRef<HTMLDivElement>(null);
 	const dropdownRef = useRef<HTMLDivElement>(null);
 	const chevronRef = useRef<HTMLSpanElement>(null);
 	const hiddenRef = useRef<HTMLInputElement>(null);
+	const nativeSelectRef = useRef<HTMLSelectElement>(null);
 	const wrapperRef = useRef<HTMLDivElement>(null);
 
 	useImperativeHandle(ref, () => hiddenRef.current as HTMLInputElement);
@@ -127,9 +133,9 @@ export default function SelectField({
 		});
 	});
 
-	const selectedOption = !multi
-		? options.find((o) => o.value === selectedSingle)
-		: null;
+	const selectedOption = multi
+		? null
+		: options.find((o) => o.value === selectedSingle);
 	const selectedOptions = multi
 		? options.filter((o) => selectedMulti.includes(o.value))
 		: [];
@@ -184,59 +190,68 @@ export default function SelectField({
 		});
 	});
 
-	const toggle = () => {
+	const toggle = useCallback(() => {
 		if (disabled) {
 			return;
 		}
 		setOpen((prev) => !prev);
-	};
+	}, [disabled]);
 
 	const _close = () => setOpen(false);
 
-	const selectSingle = (opt: SelectOption) => {
-		if (opt.disabled) {
-			return;
-		}
-		if (controlledValue === undefined) {
-			setInternalSingle(opt.value);
-		}
-		(onChange as ((v: string) => void) | undefined)?.(opt.value);
-		setOpen(false);
-		triggerRef.current?.focus();
-	};
-
-	const toggleMulti = (opt: SelectOption) => {
-		if (opt.disabled) {
-			return;
-		}
-		const current =
-			controlledValue !== undefined
-				? (controlledValue as string[])
-				: internalMulti;
-		const next = current.includes(opt.value)
-			? current.filter((v) => v !== opt.value)
-			: [...current, opt.value];
-		if (controlledValue === undefined) {
-			setInternalMulti(next);
-		}
-		(onChange as ((v: string[]) => void) | undefined)?.(next);
-	};
-
-	const clearAll = (e: React.MouseEvent) => {
-		e.stopPropagation();
-		if (multi) {
-			if (controlledValue === undefined) {
-				setInternalMulti([]);
+	const selectSingle = useCallback(
+		(opt: SelectOption) => {
+			if (opt.disabled) {
+				return;
 			}
-			(onChange as ((v: string[]) => void) | undefined)?.([]);
-		} else {
 			if (controlledValue === undefined) {
-				setInternalSingle("");
+				setInternalSingle(opt.value);
 			}
-			(onChange as ((v: string) => void) | undefined)?.("");
-		}
-		triggerRef.current?.focus();
-	};
+			(onChange as ((v: string) => void) | undefined)?.(opt.value);
+			setOpen(false);
+			triggerRef.current?.focus();
+		},
+		[controlledValue, onChange],
+	);
+
+	const toggleMulti = useCallback(
+		(opt: SelectOption) => {
+			if (opt.disabled) {
+				return;
+			}
+			const current =
+				controlledValue === undefined
+					? internalMulti
+					: toStringArray(controlledValue);
+			const next = current.includes(opt.value)
+				? current.filter((v) => v !== opt.value)
+				: [...current, opt.value];
+			if (controlledValue === undefined) {
+				setInternalMulti(next);
+			}
+			(onChange as ((v: string[]) => void) | undefined)?.(next);
+		},
+		[controlledValue, internalMulti, onChange],
+	);
+
+	const clearAll = useCallback(
+		(e: React.MouseEvent) => {
+			e.stopPropagation();
+			if (multi) {
+				if (controlledValue === undefined) {
+					setInternalMulti([]);
+				}
+				(onChange as ((v: string[]) => void) | undefined)?.([]);
+			} else {
+				if (controlledValue === undefined) {
+					setInternalSingle("");
+				}
+				(onChange as ((v: string) => void) | undefined)?.("");
+			}
+			triggerRef.current?.focus();
+		},
+		[multi, controlledValue, onChange],
+	);
 
 	useEffect(() => {
 		if (open) {
@@ -252,35 +267,38 @@ export default function SelectField({
 		onAnimateClose();
 	}, [open]);
 
-	const onKeyDown = (e: React.KeyboardEvent) => {
-		if (e.key === "Escape") {
-			setOpen(false);
-			triggerRef.current?.focus();
-		}
-		if (e.key === "ArrowDown" || e.key === "ArrowUp") {
-			e.preventDefault();
-			if (!open) {
-				setOpen(true);
-				return;
+	const onKeyDown = useCallback(
+		(e: React.KeyboardEvent) => {
+			if (e.key === "Escape") {
+				setOpen(false);
+				triggerRef.current?.focus();
 			}
-			if (!multi) {
-				const enabledOpts = options.filter((o) => !o.disabled);
-				const idx = enabledOpts.findIndex((o) => o.value === selectedSingle);
-				const next =
-					e.key === "ArrowDown"
-						? (idx + 1) % enabledOpts.length
-						: (idx - 1 + enabledOpts.length) % enabledOpts.length;
-				const nextOpt = enabledOpts[next];
-				if (nextOpt) {
-					selectSingle(nextOpt);
+			if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+				e.preventDefault();
+				if (!open) {
+					setOpen(true);
+					return;
+				}
+				if (!multi) {
+					const enabledOpts = options.filter((o) => !o.disabled);
+					const idx = enabledOpts.findIndex((o) => o.value === selectedSingle);
+					const next =
+						e.key === "ArrowDown"
+							? (idx + 1) % enabledOpts.length
+							: (idx - 1 + enabledOpts.length) % enabledOpts.length;
+					const nextOpt = enabledOpts[next];
+					if (nextOpt) {
+						selectSingle(nextOpt);
+					}
 				}
 			}
-		}
-		if (e.key === "Enter" || e.key === " ") {
-			e.preventDefault();
-			toggle();
-		}
-	};
+			if (e.key === "Enter" || e.key === " ") {
+				e.preventDefault();
+				toggle();
+			}
+		},
+		[open, multi, options, selectedSingle, selectSingle, toggle],
+	);
 
 	const hiddenValue = multi ? selectedMulti.join(",") : selectedSingle;
 
@@ -308,6 +326,8 @@ export default function SelectField({
 		);
 	};
 
+	const listboxId = `${fieldId}-listbox`;
+
 	return (
 		<fieldset className="fieldset space-y-1">
 			<label className="label ds-label" htmlFor={fieldId}>
@@ -318,14 +338,31 @@ export default function SelectField({
 			</label>
 			<div ref={wrapperRef} className="relative">
 				<input ref={hiddenRef} type="hidden" name={name} value={hiddenValue} />
-				<button
+				<select
+					ref={nativeSelectRef}
+					aria-label={label}
+					multiple={multi || undefined}
+					tabIndex={-1}
+					className="sr-only"
+					value={multi ? selectedMulti : selectedSingle}
+					onChange={() => {}}
+				>
+					{!multi && <option value="">{placeholder}</option>}
+					{options.map((opt) => (
+						<option key={opt.value} value={opt.value} disabled={opt.disabled}>
+							{opt.label}
+						</option>
+					))}
+				</select>
+				<div
 					ref={triggerRef}
-					type="button"
-					id={fieldId}
 					role="combobox"
+					tabIndex={disabled ? -1 : 0}
+					id={fieldId}
 					aria-expanded={open}
 					aria-haspopup="listbox"
-					disabled={disabled}
+					aria-controls={listboxId}
+					aria-disabled={disabled || undefined}
 					onClick={toggle}
 					onKeyDown={onKeyDown}
 					className={cn(
@@ -353,16 +390,15 @@ export default function SelectField({
 					<span ref={chevronRef} className="ds-select-chevron">
 						<ChevronDown size={14} />
 					</span>
-				</button>
+				</div>
 			</div>
 
 			{portalReady &&
 				createPortal(
 					<div
 						ref={dropdownRef}
-						role="listbox"
-						aria-labelledby={fieldId}
-						aria-multiselectable={multi || undefined}
+						id={listboxId}
+						aria-hidden={!open}
 						className="ds-select-dropdown"
 						style={{
 							display: "none",
@@ -378,13 +414,21 @@ export default function SelectField({
 								: opt.value === selectedSingle;
 							return (
 								<button
-									key={opt.value}
 									type="button"
-									role="option"
+									key={opt.value}
 									data-option
-									aria-selected={isSelected}
-									disabled={opt.disabled}
-									onClick={() => (multi ? toggleMulti(opt) : selectSingle(opt))}
+									data-selected={isSelected || undefined}
+									disabled={opt.disabled || undefined}
+									onClick={() =>
+										!opt.disabled &&
+										(multi ? toggleMulti(opt) : selectSingle(opt))
+									}
+									onKeyDown={(e) => {
+										if (!opt.disabled && (e.key === "Enter" || e.key === " ")) {
+											e.preventDefault();
+											multi ? toggleMulti(opt) : selectSingle(opt);
+										}
+									}}
 									className={cn(
 										"ds-select-option",
 										isSelected && "ds-select-option-active",

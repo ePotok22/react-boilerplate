@@ -12,7 +12,7 @@ export default function ShowcaseCard({
 	description,
 	children,
 }: Readonly<ShowcaseCardProps>) {
-	const cardRef = useRef<HTMLDivElement>(null);
+	const cardRef = useRef<HTMLFieldSetElement>(null);
 
 	const onEnter = () => {
 		gsap.to(cardRef.current, {
@@ -33,20 +33,19 @@ export default function ShowcaseCard({
 	};
 
 	return (
-		// biome-ignore lint/a11y/noStaticElementInteractions: decorative hover animation only
-		<div
+		<fieldset
 			ref={cardRef}
 			onMouseEnter={onEnter}
 			onMouseLeave={onLeave}
 			className="group card overflow-visible border border-(--line) bg-base-100 shadow-sm"
 		>
 			<div className="card-body overflow-visible">
-				<h3 className="card-title text-base transition-colors group-hover:text-primary">
+				<legend className="card-title text-base transition-colors group-hover:text-primary">
 					{title}
-				</h3>
+				</legend>
 				{description && <p className="text-sm opacity-60">{description}</p>}
 				<div className="mt-2">{children}</div>
 			</div>
-		</div>
+		</fieldset>
 	);
 }

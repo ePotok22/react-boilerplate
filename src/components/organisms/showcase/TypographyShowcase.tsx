@@ -11,6 +11,7 @@ import {
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Alert, Badge, Button } from "@/components/atoms";
+import type { BadgeVariant } from "@/components/atoms/Badge";
 import { Card } from "@/components/molecules";
 import Section from "@/components/organisms/showcase/Section";
 import ShowcaseCard from "@/components/organisms/showcase/ShowcaseCard";
@@ -145,28 +146,31 @@ export function AlertsBadgesShowcase() {
 		},
 	];
 
-	const BADGE_GROUPS = [
+	const BADGE_GROUPS: {
+		badges: { text: string; variant: BadgeVariant }[];
+		label: string;
+	}[] = [
 		{
 			badges: [
-				{ text: "Active", variant: "success" as const },
-				{ text: "Pending", variant: "warning" as const },
-				{ text: "Offline", variant: "error" as const },
+				{ text: "Active", variant: "success" },
+				{ text: "Pending", variant: "warning" },
+				{ text: "Offline", variant: "error" },
 			],
 			label: t("typography.badgeVariants.status"),
 		},
 		{
 			badges: [
-				{ text: "Primary", variant: "primary" as const },
-				{ text: "Secondary", variant: "secondary" as const },
-				{ text: "Accent", variant: "accent" as const },
+				{ text: "Primary", variant: "primary" },
+				{ text: "Secondary", variant: "secondary" },
+				{ text: "Accent", variant: "accent" },
 			],
 			label: t("typography.badgeVariants.category"),
 		},
 		{
 			badges: [
-				{ text: "Outline", variant: "outline" as const },
-				{ text: "Ghost", variant: "ghost" as const },
-				{ text: "Info", variant: "info" as const },
+				{ text: "Outline", variant: "outline" },
+				{ text: "Ghost", variant: "ghost" },
+				{ text: "Info", variant: "info" },
 			],
 			label: t("typography.badgeVariants.style"),
 		},

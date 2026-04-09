@@ -5,6 +5,7 @@ vi.mock("gsap", () => ({
 	__esModule: true,
 	default: {
 		fromTo: vi.fn(),
+		killTweensOf: vi.fn(),
 		to: vi.fn(),
 	},
 }));

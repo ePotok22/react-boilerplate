@@ -5,7 +5,7 @@ import { useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { useGSAP } from "@/hooks/useGSAP";
 
-if (typeof window !== "undefined") {
+if (globalThis.window !== undefined) {
 	gsap.registerPlugin(ScrollTrigger);
 }
 

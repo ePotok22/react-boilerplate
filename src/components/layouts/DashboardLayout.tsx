@@ -16,6 +16,7 @@ export default function DashboardLayout({
 					<div className="flex-none">
 						<label
 							htmlFor="dashboard-drawer"
+							aria-label={t("menu")}
 							className="btn btn-ghost btn-square drawer-button"
 						>
 							<svg

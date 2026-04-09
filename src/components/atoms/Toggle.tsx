@@ -48,13 +48,12 @@ export default function Toggle({
 	variant = "primary",
 	...props
 }: Readonly<ToggleProps>) {
-	const fieldId = id || `toggle-${label.toLowerCase().replace(/\s+/g, "-")}`;
+	const fieldId = id || `toggle-${label.toLowerCase().replaceAll(/\s+/g, "-")}`;
 
 	const [internalChecked, setInternalChecked] = useState(
 		props.defaultChecked ?? false,
 	);
-	const isChecked =
-		props.checked !== undefined ? props.checked : internalChecked;
+	const isChecked = props.checked ?? internalChecked;
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		if (props.checked === undefined) {
